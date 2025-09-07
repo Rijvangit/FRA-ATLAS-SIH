@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Builds and dist
+build/
+dist/
+**/build/
+**/dist/
+
+# Logs and pids
+logs/
+*.log
+*.pid
+**/*.log
+**/*.pid
+
+# Env files
+.env
+*.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Coverage
+coverage/

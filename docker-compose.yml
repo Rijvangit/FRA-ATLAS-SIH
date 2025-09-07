@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  backend:
+    build: ./fra-backend-express-complete
+    container_name: fra-backend
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - DATABASE_URL=${DATABASE_URL}
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  dashboard:
+    build: ./fra-dashboard
+    container_name: fra-dashboard
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  map:
+    build: ./TINA/fra-map
+    container_name: fra-map
+    environment:
+      - VITE_API_URL=http://localhost:8080
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  alerts:
+    build: ./forest-alert
+    container_name: fra-alerts
+    ports:
+      - "3001:80"
+    restart: unless-stopped

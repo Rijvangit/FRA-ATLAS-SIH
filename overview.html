@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRA Atlas WebGIS DSS - System Overview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 40px;
+        }
+        
+        .status-card {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 30px;
+            border-left: 5px solid #22c55e;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .status-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .status-card h3 {
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .status-card p {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .status-running {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-stopped {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 0 40px 40px;
+        }
+        
+        .link-card {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+        
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3);
+        }
+        
+        .link-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .link-card p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .features {
+            background: #f1f5f9;
+            padding: 40px;
+        }
+        
+        .features h2 {
+            text-align: center;
+            color: #1e293b;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .feature-item {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-item h4 {
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+        
+        .feature-item p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .refresh-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #22c55e;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .refresh-btn:hover {
+            background: #16a34a;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌲 FRA Atlas WebGIS DSS</h1>
+            <p>AI-Powered Forest Rights Act Atlas and WebGIS-based Decision Support System</p>
+        </div>
+        
+        <div class="status-grid">
+            <div class="status-card">
+                <h3>🚀 Backend API</h3>
+                <p>Express.js server with TypeScript, PostgreSQL/Supabase integration, and comprehensive REST API endpoints.</p>
+                <div class="status-indicator status-running">✅ Running on Port 8080</div>
+            </div>
+            
+            <div class="status-card">
+                <h3>📊 Dashboard</h3>
+                <p>React-based analytics dashboard with interactive charts, real-time data visualization, and comprehensive reporting.</p>
+                <div class="status-indicator status-pending">⏳ Starting on Port 3000</div>
+            </div>
+            
+            <div class="status-card">
+                <h3>🗺️ Interactive Map</h3>
+                <p>Vite-powered React map component with Leaflet integration, real-time forest alerts, and spatial data visualization.</p>
+                <div class="status-indicator status-pending">⏳ Starting on Port 5173</div>
+            </div>
+            
+            <div class="status-card">
+                <h3>🚨 Forest Alerts</h3>
+                <p>AI-powered forest monitoring system with real-time alerts, severity classification, and multi-source data integration.</p>
+                <div class="status-indicator status-stopped">📋 Available on Port 3001</div>
+            </div>
+        </div>
+        
+        <div class="links">
+            <a href="http://localhost:8080" class="link-card" target="_blank">
+                <h4>🔗 Backend API</h4>
+                <p>REST API endpoints and documentation</p>
+            </a>
+            
+            <a href="http://localhost:8080/docs" class="link-card" target="_blank">
+                <h4>📚 API Documentation</h4>
+                <p>Swagger UI with complete API reference</p>
+            </a>
+            
+            <a href="http://localhost:8080/api/health" class="link-card" target="_blank">
+                <h4>🏥 Health Check</h4>
+                <p>System status and monitoring</p>
+            </a>
+            
+            <a href="http://localhost:3000" class="link-card" target="_blank">
+                <h4>📊 Dashboard</h4>
+                <p>Analytics and data visualization</p>
+            </a>
+            
+            <a href="http://localhost:5173" class="link-card" target="_blank">
+                <h4>🗺️ Interactive Map</h4>
+                <p>Spatial data and forest monitoring</p>
+            </a>
+            
+            <a href="navigation.html" class="link-card" target="_blank">
+                <h4>🧭 Navigation Hub</h4>
+                <p>Unified access to all components</p>
+            </a>
+        </div>
+        
+        <div class="features">
+            <h2>🌟 Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🗺️</div>
+                    <h4>Interactive Mapping</h4>
+                    <p>Real-time spatial data visualization with Leaflet integration</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <h4>Analytics Dashboard</h4>
+                    <p>Comprehensive data analysis with interactive charts and reports</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🤖</div>
+                    <h4>AI-Powered Alerts</h4>
+                    <p>Intelligent forest monitoring with automated threat detection</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🌐</div>
+                    <h4>WebGIS Integration</h4>
+                    <p>Advanced geospatial analysis and decision support tools</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <h4>Responsive Design</h4>
+                    <p>Mobile-friendly interface with modern UI/UX</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <h4>Secure & Scalable</h4>
+                    <p>Enterprise-grade security with cloud-ready architecture</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="refresh-btn" onclick="location.reload()">🔄 Refresh Status</button>
+    
+    <script>
+        // Auto-refresh status every 30 seconds
+        setInterval(() => {
+            fetch('http://localhost:8080/api/health')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Backend status:', data);
+                })
+                .catch(error => {
+                    console.log('Backend not responding');
+                });
+        }, 30000);
+        
+        // Check frontend services
+        function checkService(url, name) {
+            fetch(url)
+                .then(response => {
+                    if (response.ok) {
+                        console.log(`${name} is running`);
+                    }
+                })
+                .catch(error => {
+                    console.log(`${name} is not ready yet`);
+                });
+        }
+        
+        // Check services on load
+        setTimeout(() => {
+            checkService('http://localhost:3000', 'Dashboard');
+            checkService('http://localhost:5173', 'Map');
+        }, 5000);
+    </script>
+</body>
+</html>
+
+

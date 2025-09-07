@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: fra-backend
+    rootDir: fra-backend-express-complete
+    env: docker
+    plan: starter
+    autoDeploy: true
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: NODE_ENV
+        value: production
+
+  - type: static
+    name: fra-dashboard
+    rootDir: fra-dashboard
+    buildCommand: npm ci && npm run build
+    staticPublishPath: build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://fra-backend.onrender.com
+
+  - type: static
+    name: fra-map
+    rootDir: TINA/fra-map
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+
+  - type: static
+    name: forest-alert
+    rootDir: forest-alert
+    staticPublishPath: .

@@ -1,0 +1,54 @@
+{
+  "name": "fra-atlas-webgis-dss",
+  "version": "1.0.0",
+  "description": "AI-powered FRA Atlas and WebGIS-based DSS for integrated monitoring",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node scripts/dev-server.js",
+    "dev:simple": "concurrently \"npm run dev:backend\" \"npm run dev:dashboard\" \"npm run dev:map\"",
+    "dev:backend": "cd fra-backend-express-complete && npm run dev",
+    "dev:dashboard": "cd fra-dashboard && npm start",
+    "dev:map": "cd TINA/fra-map && npm run dev",
+    "dev:alerts": "cd forest-alert && python -m http.server 3001",
+    "build": "node scripts/build-all.js",
+    "build:simple": "npm run build:backend && npm run build:dashboard && npm run build:map",
+    "build:backend": "cd fra-backend-express-complete && npm run build",
+    "build:dashboard": "cd fra-dashboard && npm run build",
+    "build:map": "cd TINA/fra-map && npm run build",
+    "install:all": "npm install && cd fra-backend-express-complete && npm install && cd ../fra-dashboard && npm install && cd ../TINA/fra-map && npm install",
+    "validate": "node scripts/validate-setup.js",
+    "start": "npm run start:backend",
+    "start:backend": "cd fra-backend-express-complete && npm start",
+    "test": "npm run test:dashboard",
+    "test:dashboard": "cd fra-dashboard && npm test",
+    "setup": "npm run install:all && npm run setup:env",
+    "setup:env": "node scripts/setup-env.js",
+    "health": "node scripts/health-check.js",
+    "clean": "node scripts/clean.js",
+    "test:integration": "node scripts/integration-test.js",
+    "deploy": "npm run build && npm run start"
+  },
+  "keywords": [
+    "fra",
+    "atlas",
+    "webgis",
+    "dss",
+    "forest",
+    "monitoring",
+    "ai",
+    "geospatial"
+  ],
+  "author": "FRA Atlas Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "pg": "^8.16.3"
+  }
+}
