@@ -1,0 +1,21 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "st_nm": "Telangana" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[78.0, 19.0], [80.0, 19.0], [80.0, 17.0], [78.0, 17.0], [78.0, 19.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "st_nm": "Madhya Pradesh" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[75.0, 24.0], [80.0, 24.0], [80.0, 22.0], [75.0, 22.0], [75.0, 24.0]]]
+      }
+    }
+  ]
+}

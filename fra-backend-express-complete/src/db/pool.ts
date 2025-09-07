@@ -1,6 +1,12 @@
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
+import dns from 'node:dns';
 dotenv.config();
+
+// Prefer IPv4 to avoid ENETUNREACH issues on some networks
+try {
+  dns.setDefaultResultOrder('ipv4first');
+} catch {}
 
 // Validate required environment variables
 if (!process.env.DATABASE_URL) {

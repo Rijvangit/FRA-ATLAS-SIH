@@ -1,0 +1,10 @@
+{
+  "claims": [
+    { "state": "Madhya Pradesh", "district": "Bhopal", "year": 2021, "approved": 200, "pending": 100, "rejected": 50, "type": "individual" },
+    { "state": "Madhya Pradesh", "district": "Indore", "year": 2022, "approved": 250, "pending": 80, "rejected": 30, "type": "community" },
+    { "state": "Odisha", "district": "Cuttack", "year": 2021, "approved": 300, "pending": 120, "rejected": 60, "type": "individual" },
+    { "state": "Odisha", "district": "Puri", "year": 2022, "approved": 180, "pending": 90, "rejected": 40, "type": "community" },
+    { "state": "Telangana", "district": "Hyderabad", "year": 2021, "approved": 220, "pending": 70, "rejected": 20, "type": "individual" },
+    { "state": "Tripura", "district": "Agartala", "year": 2022, "approved": 150, "pending": 60, "rejected": 20, "type": "community" }
+  ]
+}
