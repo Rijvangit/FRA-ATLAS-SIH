@@ -1,0 +1,24 @@
+{
+  "projects": {
+    "fra-dashboard": {
+      "root": "fra-dashboard",
+      "buildCommand": "npm run build",
+      "outputDirectory": "build"
+    },
+    "fra-map": {
+      "root": "TINA/fra-map",
+      "buildCommand": "npm run build",
+      "outputDirectory": "dist"
+    },
+    "fra-backend": {
+      "root": "fra-backend-express-complete",
+      "buildCommand": "npm install && npm run build",
+      "outputDirectory": "."
+    }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/fra-backend-express-complete/$1" },
+    { "source": "/map/(.*)", "destination": "/TINA/fra-map/dist/index.html" },
+    { "source": "/(.*)", "destination": "/fra-dashboard/build/index.html" }
+  ]
+}
