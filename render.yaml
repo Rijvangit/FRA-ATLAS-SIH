@@ -5,7 +5,6 @@ services:
     rootDir: fra-backend-express-complete
     env: docker
     dockerfilePath: Dockerfile
-    plan: starter
     autoDeploy: true
     healthCheckPath: /api/health
     envVars:
@@ -18,7 +17,7 @@ services:
     name: fra-dashboard
     rootDir: fra-dashboard
     buildCommand: npm ci && npm run build
-    staticPublishPath: build
+    publishPath: build
     envVars:
       - key: REACT_APP_API_URL
         sync: false
@@ -27,7 +26,7 @@ services:
     name: fra-map
     rootDir: TINA/fra-map
     buildCommand: npm ci && npm run build
-    staticPublishPath: dist
+    publishPath: dist
     envVars:
       - key: VITE_API_URL
         sync: false
@@ -35,4 +34,4 @@ services:
   - type: static
     name: forest-alert
     rootDir: forest-alert
-    staticPublishPath: .
+    publishPath: .
