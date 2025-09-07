@@ -20,11 +20,11 @@ export const pool = new Pool({
     ? { rejectUnauthorized: false }
     : undefined,
   // Connection pool optimization for better performance
-  max: 20, // Maximum number of clients in the pool
-  min: 5,  // Minimum number of clients in the pool
-  idleTimeoutMillis: 30000, // Close idle clients after 30 seconds
-  connectionTimeoutMillis: 10000, // Return an error after 10 seconds if connection could not be established
-  // Enable keep-alive to prevent connection drops
+
+  max: 20,
+  min: 5,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 10000,
   keepAlive: true,
   keepAliveInitialDelayMillis: 0,
 });
