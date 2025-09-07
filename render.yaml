@@ -13,25 +13,28 @@ services:
       - key: NODE_ENV
         value: production
 
-  - type: static
+  - type: web
     name: fra-dashboard
     rootDir: fra-dashboard
+    env: static
     buildCommand: npm ci && npm run build
     publishPath: build
     envVars:
       - key: REACT_APP_API_URL
         sync: false
 
-  - type: static
+  - type: web
     name: fra-map
     rootDir: TINA/fra-map
+    env: static
     buildCommand: npm ci && npm run build
     publishPath: dist
     envVars:
       - key: VITE_API_URL
         sync: false
 
-  - type: static
+  - type: web
     name: forest-alert
     rootDir: forest-alert
+    env: static
     publishPath: .
