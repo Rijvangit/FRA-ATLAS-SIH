@@ -22,3 +22,4 @@
     { "source": "/(.*)", "destination": "/fra-dashboard/build/index.html" }
   ]
 }
+

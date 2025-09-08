@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Forest Alert — 2025 (Mock)</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Forest Alert (Mock 2025)</h1>
+    <p class="subtitle">Telangana • Odisha • Tripura • Madhya Pradesh</p>
+  </header>
+
+  <main>
+    <aside class="panel">
+      <div class="panel-section">
+        <h2>Filters</h2>
+        <label>States</label>
+        <div class="chips" id="state-filters">
+          <!-- Chips injected by app.js -->
+        </div>
+
+        <label>Severity</label>
+        <div class="checks">
+          <label><input type="checkbox" name="sev" value="Low" checked> Low</label>
+          <label><input type="checkbox" name="sev" value="Medium" checked> Medium</label>
+          <label><input type="checkbox" name="sev" value="High" checked> High</label>
+        </div>
+
+        <label>Date range (2025)</label>
+        <div class="date-range">
+          <input type="date" id="start-date" value="2025-01-01" min="2025-01-01" max="2025-12-31"/>
+          <span>to</span>
+          <input type="date" id="end-date" value="2025-12-31" min="2025-01-01" max="2025-12-31"/>
+        </div>
+
+        <button id="apply-btn">Apply Filters</button>
+        <button id="reset-btn" class="secondary">Reset</button>
+      </div>
+
+      <div class="panel-section">
+        <h2>Summary</h2>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-label">Total Alerts</div>
+            <div class="stat-value" id="stat-total">—</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Visible</div>
+            <div class="stat-value" id="stat-visible">—</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Last Updated</div>
+            <div class="stat-value" id="stat-updated">2025</div>
+          </div>
+        </div>
+        <div id="by-state"></div>
+      </div>
+
+      <div class="panel-section note">
+        <p>This is mock data for 2025 for demo and integration testing. Tile data © OpenStreetMap contributors.</p>
+      </div>
+    </aside>
+
+    <section class="map-wrap">
+      <div id="map"></div>
+      <div class="legend" id="legend">
+        <b>Severity</b>
+        <div><span class="dot sev-low"></span> Low</div>
+        <div><span class="dot sev-medium"></span> Medium</div>
+        <div><span class="dot sev-high"></span> High</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Forest Alert UI • Built with Leaflet</span>
+    <a href="#" id="download-visible" title="Download visible alerts as JSON">Download filtered JSON</a>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

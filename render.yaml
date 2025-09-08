@@ -1,41 +1,38 @@
-apiVersion: 1
 services:
   # Backend (Express + TypeScript)
-  - type: web
+  - type: web_service
     name: fra-backend
-    rootDir: fra-backend-express-complete
-    env: docker
-    dockerfilePath: Dockerfile
-    autoDeploy: true
-    healthCheckPath: /api/health
+    env: node
+    buildCommand: cd fra-backend-express-complete && npm install && npm run build
+    startCommand: cd fra-backend-express-complete && npm start
     envVars:
       - key: DATABASE_URL
-        sync: false  # set in Render dashboard
+        sync: false   # set manually in Render dashboard
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 8080
 
   # Dashboard (React - CRA)
-  - type: static
+  - type: static_site
     name: fra-dashboard
-    rootDir: fra-dashboard
-    buildCommand: npm ci && npm run build
-    publishPath: build
-    envVars:
-      - key: REACT_APP_API_URL
-        sync: false  # set to https://fra-backend.onrender.com (or your backend URL)
+    buildCommand: cd fra-dashboard && npm install && npm run build
+    publishPath: fra-dashboard/build
 
   # Map (React - Vite)
-  - type: static
+  - type: static_site
     name: fra-map
-    rootDir: TINA/fra-map
-    buildCommand: npm ci && npm run build
-    publishPath: dist
-    envVars:
-      - key: VITE_API_URL
-        sync: false  # set to your backend URL
+    buildCommand: cd TINA/fra-map && npm install && npm run build
+    publishPath: TINA/fra-map/dist
 
-  # Forest Alert (static site)
-  - type: static
+  # Forest Alert (Express backend)
+  - type: web_service
     name: forest-alert
-    rootDir: forest-alert
-    publishPath: .
+    env: node
+    buildCommand: cd forest-alert && npm install
+    startCommand: cd forest-alert && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 8081
