@@ -1,38 +1,37 @@
 services:
-  # Backend (Express + TypeScript)
-  - type: web_service
-    name: fra-backend
+  # Backend (Express + TS)
+  - type: web
+    name: fra-backend-express
     env: node
-    buildCommand: cd fra-backend-express-complete && npm install && npm run build
-    startCommand: cd fra-backend-express-complete && npm start
+    buildCommand: npm install && npm run build
+    startCommand: npm start
     envVars:
-      - key: DATABASE_URL
-        sync: false   # set manually in Render dashboard
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 8080
+      - key: DATABASE_URL
+        sync: false   # you’ll set it manually in Render dashboard
 
-  # Dashboard (React - CRA)
-  - type: static_site
+  # Dashboard (Create React App)
+  - type: static
     name: fra-dashboard
-    buildCommand: cd fra-dashboard && npm install && npm run build
-    publishPath: fra-dashboard/build
+    buildCommand: npm install && npm run build
+    staticPublishPath: build
+    envVars:
+      - key: REACT_APP_API_URL
+        sync: false   # set this to backend URL after deploy
 
-  # Map (React - Vite)
-  - type: static_site
+  # Map (Vite + React)
+  - type: static
     name: fra-map
-    buildCommand: cd TINA/fra-map && npm install && npm run build
-    publishPath: TINA/fra-map/dist
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false   # set this to backend URL after deploy
 
-  # Forest Alert (Express backend)
-  - type: web_service
+  # Forest Alert (simple Express app)
+  - type: web
     name: forest-alert
     env: node
-    buildCommand: cd forest-alert && npm install
-    startCommand: cd forest-alert && npm start
-    envVars:
-      - key: NODE_ENV
-        value: production
-      - key: PORT
-        value: 8081
+    buildCommand: npm install
+    startCommand: npm start
