@@ -11,20 +11,20 @@ services:
       - key: DATABASE_URL
         sync: false   # set manually in Render dashboard
 
-  # Dashboard (CRA build)
+  # Dashboard (CRA build - Static Site)
   - type: web
     name: fra-dashboard
-    env: node
+    env: static
     buildCommand: npm install && npm run build
     staticPublishPath: build
     envVars:
       - key: REACT_APP_API_URL
         sync: false   # backend URL after deploy
 
-  # Map (Vite + React)
+  # Map (Vite + React - Static Site)
   - type: web
     name: fra-map
-    env: node
+    env: static
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
