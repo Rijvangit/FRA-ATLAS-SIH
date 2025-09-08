@@ -9,27 +9,29 @@ services:
       - key: NODE_ENV
         value: production
       - key: DATABASE_URL
-        sync: false   # you’ll set it manually in Render dashboard
+        sync: false   # set manually in Render dashboard
 
-  # Dashboard (Create React App)
-  - type: static
+  # Dashboard (CRA build)
+  - type: web
     name: fra-dashboard
+    env: node
     buildCommand: npm install && npm run build
     staticPublishPath: build
     envVars:
       - key: REACT_APP_API_URL
-        sync: false   # set this to backend URL after deploy
+        sync: false   # backend URL after deploy
 
   # Map (Vite + React)
-  - type: static
+  - type: web
     name: fra-map
+    env: node
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
-        sync: false   # set this to backend URL after deploy
+        sync: false   # backend URL after deploy
 
-  # Forest Alert (simple Express app)
+  # Forest Alert (Express)
   - type: web
     name: forest-alert
     env: node
