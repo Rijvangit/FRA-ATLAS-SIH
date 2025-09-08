@@ -1,4 +1,6 @@
+apiVersion: 1
 services:
+  # Backend (Express + TypeScript)
   - type: web
     name: fra-backend
     rootDir: fra-backend-express-complete
@@ -8,40 +10,32 @@ services:
     healthCheckPath: /api/health
     envVars:
       - key: DATABASE_URL
-        sync: false
+        sync: false  # set in Render dashboard
       - key: NODE_ENV
         value: production
 
-  - type: web
+  # Dashboard (React - CRA)
+  - type: static
     name: fra-dashboard
     rootDir: fra-dashboard
-    env: static
     buildCommand: npm ci && npm run build
-    staticPublishPath: build
+    publishPath: build
     envVars:
       - key: REACT_APP_API_URL
-        sync: false
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+        sync: false  # set to https://fra-backend.onrender.com (or your backend URL)
 
-  - type: web
+  # Map (React - Vite)
+  - type: static
     name: fra-map
     rootDir: TINA/fra-map
-    env: static
     buildCommand: npm ci && npm run build
-    staticPublishPath: dist
+    publishPath: dist
     envVars:
       - key: VITE_API_URL
-        sync: false
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+        sync: false  # set to your backend URL
 
-  - type: web
+  # Forest Alert (static site)
+  - type: static
     name: forest-alert
     rootDir: forest-alert
-    env: static
-    staticPublishPath: .
+    publishPath: .
