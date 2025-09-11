@@ -7,7 +7,9 @@ html, body, #root {
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial,sans-serif;
+  background: #ffffff;
+  color: #111111;
 }
 
 .app {
@@ -19,9 +21,8 @@ body {
 .sidebar {
   width: 320px;
   padding: 12px;
-  background: #fbfcfd;
-  border-right: 1px solid #e6e9ee;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
 }
 
 .map-area {
@@ -30,7 +31,18 @@ body {
 
 .input, .btn {
   width: 100%;
-  padding: 8px 10px;
+  padding: 10px 12px;
   margin: 6px 0;
   box-sizing: border-box;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
 }
+
+.btn {
+  background: #1f7aec;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn.secondary { background: #f3f4f6; color: #374151; border-color: #d1d5db; }

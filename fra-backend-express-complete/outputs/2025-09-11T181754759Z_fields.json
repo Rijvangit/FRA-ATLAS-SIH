@@ -1,0 +1,17 @@
+{
+  "claimant_name": "John Doe",
+  "village_name": "Sample Village",
+  "district": "Sample District",
+  "state": "Maharashtra",
+  "claim_number": "N",
+  "area_hectares": "2.5",
+  "date_submitted": "09/09/2025",
+  "land_type": "Forest Land",
+  "father_husband_name": null,
+  "caste": "Scheduled Tribe",
+  "occupation": "Farmer",
+  "address": "Sample ",
+  "land_description": "Dense forest area with mixed vegetation",
+  "boundaries": "North - River, South - Road, East - Hill, West - Field",
+  "witnesses": null
+}

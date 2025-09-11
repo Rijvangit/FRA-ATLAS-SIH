@@ -7,6 +7,11 @@
     <title>Vite + React</title>
   </head>
   <body>
+    <nav style="position:sticky;top:0;z-index:1000;background:#ffffff;border-bottom:1px solid #e5e7eb;padding:8px 12px;display:flex;gap:8px;flex-wrap:wrap">
+      <button onclick="location.href='http://localhost:3000/'" style="padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;background:#f3f4f6;cursor:pointer">Open Dashboard</button>
+      <button onclick="location.href='http://localhost:8000/'" style="padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;background:#f3f4f6;cursor:pointer">Open Forest Alert</button>
+      <button onclick="history.back()" style="padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;background:#f3f4f6;cursor:pointer">← Back</button>
+    </nav>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

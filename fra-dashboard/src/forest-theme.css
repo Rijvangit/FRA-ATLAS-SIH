@@ -1,0 +1,63 @@
+/* ForestAlert-inspired light theme overrides */
+:root {
+  --fa-bg: #ffffff;
+  --fa-text: #111111;
+  --fa-muted: #4b5563;
+  --fa-border: #e5e7eb;
+  --fa-surface: #ffffff;
+  --fa-chip-bg: #f3f4f6;
+  --fa-chip-border: #d1d5db;
+  --fa-primary: #1f7aec;
+}
+
+html, body, #root { background: var(--fa-bg); color: var(--fa-text); }
+body { font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial,sans-serif; }
+
+/* Generic buttons */
+button, .btn, .btn-primary {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--fa-primary);
+  background: var(--fa-primary);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn, .btn-secondary {
+  border: 1px solid var(--fa-chip-border);
+  background: var(--fa-chip-bg);
+  color: #374151;
+}
+button:hover, .btn:hover { filter: brightness(0.98); }
+
+/* Cards and panels */
+.glass-card, .stats-card, .chart-container, .map-container, .filter-section, .bg-white {
+  background: var(--fa-surface) !important;
+  border: 1px solid var(--fa-border);
+  border-radius: 12px;
+}
+
+/* Text colors */
+.text-gray-600 { color: var(--fa-muted) !important; }
+.text-gray-700 { color: #374151 !important; }
+.text-gray-800 { color: #1f2937 !important; }
+
+/* Tables */
+table { border-collapse: collapse; }
+th, td { border-color: var(--fa-border); }
+
+/* Header-like blocks */
+.gradient-text { background: linear-gradient(180deg,#0f1629,#0b1220); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+/* Inputs */
+select, input, .custom-select {
+  background: #ffffff;
+  border: 1px solid var(--fa-chip-border);
+  border-radius: 8px;
+  color: var(--fa-text);
+}
+
+/* Nav buttons area */
+.nav-wrap { position: sticky; top: 0; z-index: 40; background: var(--fa-bg); border-bottom: 1px solid var(--fa-border); padding: 8px 12px; }
+
+

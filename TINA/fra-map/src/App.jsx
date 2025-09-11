@@ -12,7 +12,7 @@ export default function App() {
         className="sidebar" 
         style={{ width: 300, padding: 20, background: "#f9f9f9", boxShadow: "2px 0 5px rgba(0,0,0,0.1)" }}
       >
-        <h2>FRA Atlas — Tina</h2>
+        <h2>FRA Atlas</h2>
         <p>Interactive Map for FRA Claims</p>
 
         {/* Search */}

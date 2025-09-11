@@ -8,6 +8,8 @@ import claimsRouter from './routes/claims';
 import analyticsRoutes from './routes/analytics';
 import alertsRouter from './routes/alerts';
 import ocrRouter from './routes/ocr';
+import decisionRulesRouter from './routes/decisionRules';
+import dssRoutes from './routes/dssRules';
 
 const app = express();
 
@@ -34,6 +36,7 @@ app.get('/', (req, res) => {
         alerts: '/api/alerts',
         analytics: '/api/analytics',
         ocr: '/api/ocr',
+        decisionRules: '/api/decision-rules',
         documentation: '/docs',
         health: '/api/health'
       }
@@ -53,8 +56,10 @@ app.get('/api/health', (req, res) => {
 app.use('/api/claims', claimsRouter);
 app.use('/api/alerts', alertsRouter);
 app.use('/api/ocr', ocrRouter);
+app.use('/api/decision-rules', decisionRulesRouter);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/analytics", analyticsRoutes);
+app.use('/api/dss/rules', dssRoutes);
 
 const port = Number(process.env.PORT || 8080);
 

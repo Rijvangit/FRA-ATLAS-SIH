@@ -1,0 +1,8 @@
+Claimant Name: Ramesh
+Village: Adilabad
+District: Adilabad
+State: Telangana
+Claim: FRA-123
+Area: 7.5 hectares
+Date Submitted: 2025-06-01
+Land Type: protected

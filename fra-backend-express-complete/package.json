@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "build": "tsc",
-    "start": "node dist/app.js"
+    "start": "node dist/app.js",
+    "migrate:run": "ts-node src/scripts/runMigrations.ts run",
+    "migrate:status": "ts-node src/scripts/runMigrations.ts status"
   },
   "dependencies": {
     "body-parser": "^1.20.2",

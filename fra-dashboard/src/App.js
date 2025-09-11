@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import NavBar from './components/NavBar';
 import data from "./data.json";
 import MapView from "./MapView";
 import OCRUpload from "./components/OCRUpload";
@@ -15,7 +17,22 @@ export default function App() {
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState('dashboard');
+
+  useEffect(() => {
+    const path = location.pathname.replace(/^\/+/, '');
+    if (path === '' || path === 'dashboard') setActiveTab('dashboard');
+    else if (path === 'maps') setActiveTab('maps');
+    else if (path === 'alerts') setActiveTab('alerts');
+    else if (path === 'ocr') setActiveTab('ocr');
+  }, [location.pathname]);
+
+  const go = (path) => {
+    setActiveTab(path);
+    navigate(path === 'dashboard' ? '/' : `/${path}`);
+  };
   
   // Filter states
   const [filters, setFilters] = useState({
@@ -107,7 +124,7 @@ export default function App() {
     <div className="min-h-screen p-6 fade-in">
       {/* Header */}
       <div className="mb-6 glass-card p-6 rounded-2xl">
-        <h1 className="text-4xl font-bold gradient-text mb-2">FRA Atlas WebGIS DSS</h1>
+        <h1 className="text-4xl font-bold gradient-text mb-2">TRINETRA FRA Atlas WebGIS DSS</h1>
         <p className="text-gray-600 text-lg">AI-powered Forest Rights Act monitoring and analytics</p>
         {error && (
           <div className="mt-4 p-4 bg-yellow-100 border border-yellow-400 rounded-lg text-yellow-700">
@@ -117,145 +134,95 @@ export default function App() {
       </div>
 
       {/* Navigation Tabs */}
-      <div className="mb-6 bg-white p-4 rounded-2xl shadow">
-        <div className="flex space-x-4">
-          <button
-            onClick={() => setActiveTab('dashboard')}
-            className={`px-4 py-2 rounded-lg font-medium ${
-              activeTab === 'dashboard'
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            Dashboard
-          </button>
-          <button
-            onClick={() => setActiveTab('ocr')}
-            className={`px-4 py-2 rounded-lg font-medium ${
-              activeTab === 'ocr'
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            Document OCR
-          </button>
-        </div>
-      </div>
+      <NavBar activeTab={activeTab} onNavigate={go} />
 
       {/* Tab Content */}
-      {activeTab === 'dashboard' && (
-        <>
-          {/* Stats Overview */}
-          {analytics && (
-            <div className="mb-6 grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="stats-card">
-                <h3 className="text-sm font-medium text-gray-500 mb-1">Total Claims</h3>
-                <p className="text-3xl font-bold text-blue-600">{analytics.totalClaims}</p>
+      <Routes>
+        <Route path="/" element={
+          <div>
+            {/* Stats Overview */}
+            {analytics && (
+              <div className="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="bg-white p-4 rounded-2xl shadow">
+                  <h3 className="text-sm font-medium text-gray-500">Total Claims</h3>
+                  <p className="text-2xl font-bold text-blue-600">{analytics.totalClaims}</p>
+                </div>
+                <div className="bg-white p-4 rounded-2xl shadow">
+                  <h3 className="text-sm font-medium text-gray-500">Total Area</h3>
+                  <p className="text-2xl font-bold text-green-600">{analytics.totalAreaHa?.toFixed(2) || '0'} ha</p>
+                </div>
+                <div className="bg-white p-4 rounded-2xl shadow">
+                  <h3 className="text-sm font-medium text-gray-500">Active Alerts</h3>
+                  <p className="text-2xl font-bold text-red-600">{alerts.length}</p>
+                </div>
+                <div className="bg-white p-4 rounded-2xl shadow">
+                  <h3 className="text-sm font-medium text-gray-500">Conflicts</h3>
+                  <p className="text-2xl font-bold text-orange-600">{analytics.conflictCount || 0}</p>
+                </div>
               </div>
-              <div className="stats-card">
-                <h3 className="text-sm font-medium text-gray-500 mb-1">Total Area</h3>
-                <p className="text-3xl font-bold text-green-600">{analytics.totalAreaHa?.toFixed(2) || '0'} ha</p>
+            )}
+
+            {/* Filters */}
+            <div className="filter-section">
+              <h2 className="text-xl font-bold mb-4 text-gray-800">
+                Filters
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
+                  <select 
+                    value={filters.state} 
+                    onChange={(e) => handleFilterChange('state', e.target.value)}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors custom-select"
+                  >
+                    {filterOptions.states.map(state => (
+                      <option key={state} value={state}>
+                        {state === 'all' ? 'All States' : state}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Year</label>
+                  <select 
+                    value={filters.year} 
+                    onChange={(e) => handleFilterChange('year', e.target.value)}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors custom-select"
+                  >
+                    {filterOptions.years.map(year => (
+                      <option key={year} value={year}>
+                        {year === 'all' ? 'All Years' : year}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Claim Type</label>
+                  <select 
+                    value={filters.claimType} 
+                    onChange={(e) => handleFilterChange('claimType', e.target.value)}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors custom-select"
+                  >
+                    {filterOptions.claimTypes.map(type => (
+                      <option key={type} value={type}>
+                        {type === 'all' ? 'All Claim Types' : type.charAt(0).toUpperCase() + type.slice(1)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
-              <div className="stats-card">
-                <h3 className="text-sm font-medium text-gray-500 mb-1">Active Alerts</h3>
-                <p className="text-3xl font-bold text-red-600">{alerts.length}</p>
-              </div>
-              <div className="stats-card">
-                <h3 className="text-sm font-medium text-gray-500 mb-1">Conflicts</h3>
-                <p className="text-3xl font-bold text-orange-600">{analytics.conflictCount || 0}</p>
+              <div className="mt-6 flex items-center justify-between">
+                <div className="text-sm text-gray-600">
+                  Showing {filteredData.length} of {data.claims.length} claims
+                </div>
+                <button 
+                  onClick={() => setFilters({ state: 'all', year: 'all', claimType: 'all' })}
+                  className="btn-primary text-sm"
+                >
+                  Clear Filters
+                </button>
               </div>
             </div>
-          )}
-        </div>
-      </div>
-
-      {/* Tab Content */}
-      {activeTab === 'dashboard' && (
-        <>
-          {/* Stats Overview */}
-          {analytics && (
-            <div className="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="bg-white p-4 rounded-2xl shadow">
-                <h3 className="text-sm font-medium text-gray-500">Total Claims</h3>
-                <p className="text-2xl font-bold text-blue-600">{analytics.totalClaims}</p>
-              </div>
-              <div className="bg-white p-4 rounded-2xl shadow">
-                <h3 className="text-sm font-medium text-gray-500">Total Area</h3>
-                <p className="text-2xl font-bold text-green-600">{analytics.totalAreaHa?.toFixed(2) || '0'} ha</p>
-              </div>
-              <div className="bg-white p-4 rounded-2xl shadow">
-                <h3 className="text-sm font-medium text-gray-500">Active Alerts</h3>
-                <p className="text-2xl font-bold text-red-600">{alerts.length}</p>
-              </div>
-              <div className="bg-white p-4 rounded-2xl shadow">
-                <h3 className="text-sm font-medium text-gray-500">Conflicts</h3>
-                <p className="text-2xl font-bold text-orange-600">{analytics.conflictCount || 0}</p>
-              </div>
-            </div>
-          )}
-
-      {/* Filters */}
-      <div className="filter-section">
-        <h2 className="text-xl font-bold mb-4 text-gray-800">
-          Filters
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
-            <select 
-              value={filters.state} 
-              onChange={(e) => handleFilterChange('state', e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors custom-select"
-            >
-              {filterOptions.states.map(state => (
-                <option key={state} value={state}>
-                  {state === 'all' ? 'All States' : state}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Year</label>
-            <select 
-              value={filters.year} 
-              onChange={(e) => handleFilterChange('year', e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors custom-select"
-            >
-              {filterOptions.years.map(year => (
-                <option key={year} value={year}>
-                  {year === 'all' ? 'All Years' : year}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Claim Type</label>
-            <select 
-              value={filters.claimType} 
-              onChange={(e) => handleFilterChange('claimType', e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors custom-select"
-            >
-              {filterOptions.claimTypes.map(type => (
-                <option key={type} value={type}>
-                  {type === 'all' ? 'All Claim Types' : type.charAt(0).toUpperCase() + type.slice(1)}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="mt-6 flex items-center justify-between">
-          <div className="text-sm text-gray-600">
-            Showing {filteredData.length} of {data.claims.length} claims
-          </div>
-          <button 
-            onClick={() => setFilters({ state: 'all', year: 'all', claimType: 'all' })}
-            className="btn-primary text-sm"
-          >
-            Clear Filters
-          </button>
-        </div>
-      </div>
-
 {/* Charts */}
 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
   {/* Bar Chart - State/District wise */}
@@ -353,7 +320,47 @@ export default function App() {
     <MapView filters={filters} />
   </div>
 </div>
-        </>
+          </div>
+        } />
+      </Routes>
+
+      {/* Maps Tab Content */}
+      {activeTab === 'maps' && (
+        <div className="bg-white p-4 rounded-2xl shadow">
+          <h2 className="text-xl font-semibold mb-4 text-gray-800">Interactive Map</h2>
+          <div style={{ height: "600px" }}>
+            <MapView filters={filters} />
+          </div>
+        </div>
+      )}
+
+      {/* Alerts Tab Content */}
+      {activeTab === 'alerts' && (
+        <div className="bg-white p-4 rounded-2xl shadow">
+          <h2 className="text-xl font-semibold mb-4 text-gray-800">Recent Alerts</h2>
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-sm">
+              <thead>
+                <tr className="text-left text-gray-600">
+                  <th className="p-2">ID</th>
+                  <th className="p-2">State</th>
+                  <th className="p-2">Severity</th>
+                  <th className="p-2">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {alerts.slice(0, 25).map((a, idx) => (
+                  <tr key={idx} className="border-t">
+                    <td className="p-2">{a.id || idx + 1}</td>
+                    <td className="p-2">{a.state || a.location || '-'}</td>
+                    <td className="p-2">{a.severity || '-'}</td>
+                    <td className="p-2">{a.date ? new Date(a.date).toLocaleString() : '-'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       )}
 
       {/* OCR Tab Content */}

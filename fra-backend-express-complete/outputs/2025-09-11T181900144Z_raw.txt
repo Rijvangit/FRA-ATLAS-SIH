@@ -1,0 +1,17 @@
+FRA CLAIM DOCUMENT
+          
+Claimant Name: John Doe
+Village: Sample Village
+District: Sample District
+State: Maharashtra
+Claim Number: FRA-2025-001
+Area: 2.5 hectares
+Date Submitted: 09/09/2025
+Land Type: Forest Land
+Father/Husband Name: Richard Doe
+Caste: Scheduled Tribe
+Occupation: Farmer
+Address: Sample Village, Sample District, Maharashtra
+Land Description: Dense forest area with mixed vegetation
+Boundaries: North - River, South - Road, East - Hill, West - Field
+Witnesses: Jane Smith, Bob Johnson
