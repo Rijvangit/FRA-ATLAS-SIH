@@ -106,7 +106,7 @@ Approval: ${pct}%`,
 }
 
 // --------- component ----------
-export default function MapView() {
+export default function MapView({ filters = { state: 'all', year: 'all', claimType: 'all' } }) {
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(true);
 

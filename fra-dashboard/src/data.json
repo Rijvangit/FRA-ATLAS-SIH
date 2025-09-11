@@ -2,9 +2,23 @@
   "claims": [
     { "state": "Madhya Pradesh", "district": "Bhopal", "year": 2021, "approved": 200, "pending": 100, "rejected": 50, "type": "individual" },
     { "state": "Madhya Pradesh", "district": "Indore", "year": 2022, "approved": 250, "pending": 80, "rejected": 30, "type": "community" },
+    { "state": "Madhya Pradesh", "district": "Gwalior", "year": 2023, "approved": 180, "pending": 60, "rejected": 25, "type": "individual" },
     { "state": "Odisha", "district": "Cuttack", "year": 2021, "approved": 300, "pending": 120, "rejected": 60, "type": "individual" },
     { "state": "Odisha", "district": "Puri", "year": 2022, "approved": 180, "pending": 90, "rejected": 40, "type": "community" },
+    { "state": "Odisha", "district": "Bhubaneswar", "year": 2023, "approved": 220, "pending": 85, "rejected": 35, "type": "individual" },
     { "state": "Telangana", "district": "Hyderabad", "year": 2021, "approved": 220, "pending": 70, "rejected": 20, "type": "individual" },
-    { "state": "Tripura", "district": "Agartala", "year": 2022, "approved": 150, "pending": 60, "rejected": 20, "type": "community" }
+    { "state": "Telangana", "district": "Warangal", "year": 2022, "approved": 190, "pending": 75, "rejected": 25, "type": "community" },
+    { "state": "Telangana", "district": "Nizamabad", "year": 2023, "approved": 160, "pending": 65, "rejected": 30, "type": "individual" },
+    { "state": "Tripura", "district": "Agartala", "year": 2022, "approved": 150, "pending": 60, "rejected": 20, "type": "community" },
+    { "state": "Tripura", "district": "Udaipur", "year": 2023, "approved": 120, "pending": 45, "rejected": 15, "type": "individual" },
+    { "state": "Maharashtra", "district": "Mumbai", "year": 2021, "approved": 280, "pending": 110, "rejected": 45, "type": "individual" },
+    { "state": "Maharashtra", "district": "Pune", "year": 2022, "approved": 320, "pending": 95, "rejected": 40, "type": "community" },
+    { "state": "Maharashtra", "district": "Nagpur", "year": 2023, "approved": 240, "pending": 80, "rejected": 35, "type": "individual" },
+    { "state": "Karnataka", "district": "Bangalore", "year": 2021, "approved": 260, "pending": 90, "rejected": 35, "type": "individual" },
+    { "state": "Karnataka", "district": "Mysore", "year": 2022, "approved": 200, "pending": 70, "rejected": 25, "type": "community" },
+    { "state": "Karnataka", "district": "Hubli", "year": 2023, "approved": 180, "pending": 60, "rejected": 20, "type": "individual" },
+    { "state": "Gujarat", "district": "Ahmedabad", "year": 2021, "approved": 190, "pending": 75, "rejected": 30, "type": "individual" },
+    { "state": "Gujarat", "district": "Surat", "year": 2022, "approved": 210, "pending": 85, "rejected": 35, "type": "community" },
+    { "state": "Gujarat", "district": "Vadodara", "year": 2023, "approved": 170, "pending": 65, "rejected": 25, "type": "individual" }
   ]
 }
