@@ -1,0 +1,5 @@
+[33m582241a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m fix: Resolve ENOENT error for OCR config files
+[33m68ced42[m feat: Enhanced UI/UX with consistent theming and navigation
+[33md958ad8[m resolve: Merge conflicts in App.js - integrate OCR functionality with existing filter features
+[33m8c70f9a[m feat: Integrate OCR functionality for FRA document processing
+[33m8e8dcd0[m refactor: remove all icons and SVG elements for cleaner design
