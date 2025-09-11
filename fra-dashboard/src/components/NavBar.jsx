@@ -39,10 +39,10 @@ export default function NavBar({ activeTab, onNavigate }) {
         <Button active={activeTab === 'maps'} onClick={() => onNavigate('maps')} icon="map">Maps</Button>
         <Button active={activeTab === 'alerts'} onClick={() => onNavigate('alerts')} icon="alerts">Alerts</Button>
         <Button active={activeTab === 'ocr'} onClick={() => onNavigate('ocr')} icon="ocr">Document OCR</Button>
-        <button onClick={() => window.location.assign('http://localhost:5173/')} className="px-3 py-2 rounded-lg font-medium flex items-center gap-2 bg-[#f3f4f6] text-[#374151] hover:bg-[#e5e7eb]" title="Open SEARCH MAPS">
+        <button onClick={() => window.location.assign('https://fra-tr-map.onrender.com')} className="px-3 py-2 rounded-lg font-medium flex items-center gap-2 bg-[#f3f4f6] text-[#374151] hover:bg-[#e5e7eb]" title="Open SEARCH MAPS">
           <Icon name="external" /> SEARCH MAPS
         </button>
-        <button onClick={() => window.location.assign('http://localhost:8000/')} className="px-3 py-2 rounded-lg font-medium flex items-center gap-2 bg-[#f3f4f6] text-[#374151] hover:bg-[#e5e7eb]" title="Open Forest Alert">
+        <button onClick={() => window.location.assign('https://fra-trinetralert.onrender.com')} className="px-3 py-2 rounded-lg font-medium flex items-center gap-2 bg-[#f3f4f6] text-[#374151] hover:bg-[#e5e7eb]" title="Open Forest Alert">
           <Icon name="external" /> Forest Alert
         </button>
         <button onClick={() => window.history.back()} className="px-3 py-2 rounded-lg font-medium flex items-center gap-2 bg-[#f3f4f6] text-[#374151] hover:bg-[#e5e7eb]" title="Go Back">
