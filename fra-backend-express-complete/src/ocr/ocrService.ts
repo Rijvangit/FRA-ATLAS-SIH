@@ -28,7 +28,12 @@ export class OCRService {
   private outputDir: string;
 
   constructor(configPath: string, outputDir: string) {
-    this.config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+    try {
+      this.config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+    } catch (error) {
+      console.warn(`Config file not found at ${configPath}, using default FRA config`);
+      this.config = OCRService.getFRAConfig();
+    }
     this.outputDir = outputDir;
     mkdirp.sync(this.outputDir);
   }

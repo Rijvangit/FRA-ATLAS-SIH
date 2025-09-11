@@ -4,7 +4,8 @@
   "main": "dist/app.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
-    "build": "tsc",
+    "build": "tsc && npm run copy:assets",
+    "copy:assets": "node scripts/copy-assets.js",
     "start": "node dist/app.js",
     "migrate:run": "ts-node src/scripts/runMigrations.ts run",
     "migrate:status": "ts-node src/scripts/runMigrations.ts status"
