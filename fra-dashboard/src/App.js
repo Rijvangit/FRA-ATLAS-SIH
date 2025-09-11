@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import data from "./data.json";
 import MapView from "./MapView";
+import OCRUpload from "./components/OCRUpload";
 import apiService from "./services/api";
 
 import {
@@ -14,6 +15,7 @@ export default function App() {
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState('dashboard');
 
   // Load data from API
   useEffect(() => {
@@ -72,27 +74,56 @@ export default function App() {
         )}
       </div>
 
-      {/* Stats Overview */}
-      {analytics && (
-        <div className="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="bg-white p-4 rounded-2xl shadow">
-            <h3 className="text-sm font-medium text-gray-500">Total Claims</h3>
-            <p className="text-2xl font-bold text-blue-600">{analytics.totalClaims}</p>
-          </div>
-          <div className="bg-white p-4 rounded-2xl shadow">
-            <h3 className="text-sm font-medium text-gray-500">Total Area</h3>
-            <p className="text-2xl font-bold text-green-600">{analytics.totalAreaHa?.toFixed(2) || '0'} ha</p>
-          </div>
-          <div className="bg-white p-4 rounded-2xl shadow">
-            <h3 className="text-sm font-medium text-gray-500">Active Alerts</h3>
-            <p className="text-2xl font-bold text-red-600">{alerts.length}</p>
-          </div>
-          <div className="bg-white p-4 rounded-2xl shadow">
-            <h3 className="text-sm font-medium text-gray-500">Conflicts</h3>
-            <p className="text-2xl font-bold text-orange-600">{analytics.conflictCount || 0}</p>
-          </div>
+      {/* Navigation Tabs */}
+      <div className="mb-6 bg-white p-4 rounded-2xl shadow">
+        <div className="flex space-x-4">
+          <button
+            onClick={() => setActiveTab('dashboard')}
+            className={`px-4 py-2 rounded-lg font-medium ${
+              activeTab === 'dashboard'
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            Dashboard
+          </button>
+          <button
+            onClick={() => setActiveTab('ocr')}
+            className={`px-4 py-2 rounded-lg font-medium ${
+              activeTab === 'ocr'
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            Document OCR
+          </button>
         </div>
-      )}
+      </div>
+
+      {/* Tab Content */}
+      {activeTab === 'dashboard' && (
+        <>
+          {/* Stats Overview */}
+          {analytics && (
+            <div className="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="bg-white p-4 rounded-2xl shadow">
+                <h3 className="text-sm font-medium text-gray-500">Total Claims</h3>
+                <p className="text-2xl font-bold text-blue-600">{analytics.totalClaims}</p>
+              </div>
+              <div className="bg-white p-4 rounded-2xl shadow">
+                <h3 className="text-sm font-medium text-gray-500">Total Area</h3>
+                <p className="text-2xl font-bold text-green-600">{analytics.totalAreaHa?.toFixed(2) || '0'} ha</p>
+              </div>
+              <div className="bg-white p-4 rounded-2xl shadow">
+                <h3 className="text-sm font-medium text-gray-500">Active Alerts</h3>
+                <p className="text-2xl font-bold text-red-600">{alerts.length}</p>
+              </div>
+              <div className="bg-white p-4 rounded-2xl shadow">
+                <h3 className="text-sm font-medium text-gray-500">Conflicts</h3>
+                <p className="text-2xl font-bold text-orange-600">{analytics.conflictCount || 0}</p>
+              </div>
+            </div>
+          )}
 
       {/* Filters */}
       <div className="mb-6 bg-white p-4 rounded-2xl shadow">
@@ -178,8 +209,13 @@ export default function App() {
     <MapView />
   </div>
 </div>
+        </>
+      )}
 
-
+      {/* OCR Tab Content */}
+      {activeTab === 'ocr' && (
+        <OCRUpload />
+      )}
 
     </div>
   );

@@ -86,6 +86,31 @@ class ApiService {
   async getApiInfo() {
     return this.request('/');
   }
+
+  // OCR API
+  async processOCR(data) {
+    return this.request('/api/ocr/save', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async processFRADocument(data) {
+    return this.request('/api/ocr/process-fra-document', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async getOCRResults(params = {}) {
+    const queryString = new URLSearchParams(params).toString();
+    const endpoint = queryString ? `/api/ocr/results?${queryString}` : '/api/ocr/results';
+    return this.request(endpoint);
+  }
+
+  async getOCRResult(id) {
+    return this.request(`/api/ocr/results/${id}`);
+  }
 }
 
 // Create and export a singleton instance

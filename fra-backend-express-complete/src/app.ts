@@ -7,6 +7,7 @@ import { swaggerSpec } from './docs/swagger';
 import claimsRouter from './routes/claims';
 import analyticsRoutes from './routes/analytics';
 import alertsRouter from './routes/alerts';
+import ocrRouter from './routes/ocr';
 
 const app = express();
 
@@ -28,13 +29,14 @@ app.get('/', (req, res) => {
   res.json({ 
     message: '✅ FRA Backend API is running...',
     version: '1.0.0',
-    endpoints: {
-      claims: '/api/claims',
-      alerts: '/api/alerts',
-      analytics: '/api/analytics',
-      documentation: '/docs',
-      health: '/api/health'
-    }
+      endpoints: {
+        claims: '/api/claims',
+        alerts: '/api/alerts',
+        analytics: '/api/analytics',
+        ocr: '/api/ocr',
+        documentation: '/docs',
+        health: '/api/health'
+      }
   });
 });
 
@@ -50,6 +52,7 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/claims', claimsRouter);
 app.use('/api/alerts', alertsRouter);
+app.use('/api/ocr', ocrRouter);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/analytics", analyticsRoutes);
 

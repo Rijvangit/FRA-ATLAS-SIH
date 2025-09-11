@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FRA Document OCR - Standalone</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Arial;padding:14px;background:#f7fafc}
+    .card{max-width:800px;margin:20px auto;padding:16px;border-radius:10px;background:white;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+    button{padding:8px 12px;border-radius:8px;border:none;cursor:pointer;margin:4px}
+    #preview{max-width:100%;border-radius:6px;margin-top:8px}
+    pre{white-space:pre-wrap;background:#f3f4f6;padding:10px;border-radius:6px;max-height:300px;overflow-y:auto}
+    .fra-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0}
+    .field{background:#f8f9fa;padding:8px;border-radius:6px;border-left:3px solid #3b82f6}
+    .field-label{font-weight:bold;color:#374151;font-size:12px;text-transform:uppercase}
+    .field-value{color:#1f2937;margin-top:4px}
+    .success{background:#d1fae5;border-color:#10b981;color:#065f46}
+    .error{background:#fee2e2;border-color:#ef4444;color:#991b1b}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>FRA Document OCR Processing</h2>
+    <p>Upload an image or use camera to process FRA documents. OCR runs in your browser (Tesseract.js) and extracts structured data.</p>
+
+    <input type="file" id="file" accept="image/*"><br>
+    <button id="startCam">Use Camera</button>
+    <button id="stopCam" style="display:none">Stop Camera</button>
+    <div><video id="cam" autoplay playsinline style="display:none;max-width:100%;border-radius:6px"></video></div>
+    <canvas id="canvas" style="display:none"></canvas>
+    <img id="preview" alt=""><br>
+
+    <button id="doOcr">Process General OCR</button>
+    <button id="doFraOcr">Process FRA Document</button>
+
+    <h4>OCR Result</h4>
+    <pre id="output">No result yet</pre>
+    
+    <h4>Extracted Fields</h4>
+    <div id="fraFields" class="fra-fields"></div>
+    
+    <h4>Backend Response</h4>
+    <pre id="backendResp">No response yet</pre>
+  </div>
+
+  <script src="https://unpkg.com/tesseract.js@2.1.5/dist/tesseract.min.js"></script>
+  <script>
+    const fileInput = document.getElementById('file');
+    const preview = document.getElementById('preview');
+    const doOcrBtn = document.getElementById('doOcr');
+    const doFraOcrBtn = document.getElementById('doFraOcr');
+    const output = document.getElementById('output');
+    const backendResp = document.getElementById('backendResp');
+    const fraFields = document.getElementById('fraFields');
+    const startCam = document.getElementById('startCam');
+    const stopCam = document.getElementById('stopCam');
+    const cam = document.getElementById('cam');
+    const canvas = document.getElementById('canvas');
+    let stream;
+
+    fileInput.addEventListener('change', e => {
+      const f = e.target.files[0];
+      if(!f) return;
+      preview.src = URL.createObjectURL(f);
+      preview.dataset.filename = f.name;
+    });
+
+    startCam.addEventListener('click', async ()=>{
+      try{
+        stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}})
+        cam.srcObject = stream
+        cam.style.display = 'block'
+        startCam.style.display = 'none'
+        stopCam.style.display = 'inline-block'
+      }catch(err){alert('camera error: '+err.message)}
+    })
+    
+    stopCam.addEventListener('click', ()=>{
+      if(stream) stream.getTracks().forEach(t=>t.stop())
+      cam.style.display='none'
+      startCam.style.display='inline-block'
+      stopCam.style.display='none'
+    })
+
+    cam.addEventListener('click', ()=>{
+      const w = cam.videoWidth, h = cam.videoHeight
+      canvas.width = w; canvas.height = h
+      canvas.getContext('2d').drawImage(cam,0,0,w,h)
+      preview.src = canvas.toDataURL('image/png')
+      preview.dataset.filename = 'camera_capture.png'
+    })
+
+    doOcrBtn.addEventListener('click', async ()=>{
+      if(!preview.src){alert('Upload or capture an image first'); return}
+      await processOCR('/api/ocr/save', 'General OCR');
+    })
+
+    doFraOcrBtn.addEventListener('click', async ()=>{
+      if(!preview.src){alert('Upload or capture an image first'); return}
+      await processOCR('/api/ocr/process-fra-document', 'FRA Document');
+    })
+
+    async function processOCR(endpoint, type) {
+      output.textContent = `Running ${type} in browser...`
+      backendResp.textContent = ''
+      fraFields.innerHTML = ''
+      
+      try{
+        const { data: { text } } = await Tesseract.recognize(preview.src, 'eng', { logger: m => {
+          if(m.status && m.progress!=null) output.textContent = m.status + ' ' + Math.round(m.progress*100) + '%'
+        }})
+        output.textContent = text
+        
+        // Send to backend
+        const resp = await fetch(`http://localhost:8080${endpoint}`, {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({
+            filename: preview.dataset.filename || 'upload.png',
+            raw_text: text
+          })
+        })
+        const json = await resp.json()
+        backendResp.textContent = JSON.stringify(json, null, 2)
+        
+        // Display extracted fields
+        if(json.extracted) {
+          fraFields.innerHTML = Object.entries(json.extracted).map(([key, value]) => 
+            `<div class="field">
+              <div class="field-label">${key.replace(/_/g, ' ')}</div>
+              <div class="field-value">${value || 'Not found'}</div>
+            </div>`
+          ).join('')
+        }
+        
+        if(json.ok) {
+          backendResp.className = 'success'
+        } else {
+          backendResp.className = 'error'
+        }
+      }catch(e){
+        output.textContent = 'Error: '+e.message
+        backendResp.textContent = 'Error: '+e.message
+        backendResp.className = 'error'
+      }
+    }
+  </script>
+</body>
+</html>

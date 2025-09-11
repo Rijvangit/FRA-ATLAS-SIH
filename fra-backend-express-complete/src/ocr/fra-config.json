@@ -1,0 +1,64 @@
+{
+  "fields": [
+    {
+      "name": "claimant_name",
+      "pattern": "Claimant\\s+Name[\\s:]+([A-Za-z\\s]+?)(?:\\n|Village|District|State|Claim)"
+    },
+    {
+      "name": "village_name",
+      "pattern": "Village[\\s:]+([A-Za-z\\s]+?)(?:\\n|District|State|Block|Claim)"
+    },
+    {
+      "name": "district",
+      "pattern": "District[\\s:]+([A-Za-z\\s]+?)(?:\\n|State|Block|Village|Claim)"
+    },
+    {
+      "name": "state",
+      "pattern": "State[\\s:]+([A-Za-z\\s]+?)(?:\\n|District|Block|Village|Claim|$)"
+    },
+    {
+      "name": "claim_number",
+      "pattern": "Claim[\\s#:]+([A-Z0-9\\-]+)"
+    },
+    {
+      "name": "area_hectares",
+      "pattern": "Area[\\s:]+([0-9]+(?:\\.[0-9]+)?)\\s*hectares?"
+    },
+    {
+      "name": "date_submitted",
+      "pattern": "Date[\\s]+Submitted[\\s:]+([0-9\\-/]+)"
+    },
+    {
+      "name": "land_type",
+      "pattern": "Land[\\s]?Type[\\s:]+([A-Za-z\\s]+?)(?:\\n|Area|Claim|Village)"
+    },
+    {
+      "name": "father_husband_name",
+      "pattern": "Father[\\s/]Husband[\\s:]+([A-Za-z\\s]+?)(?:\\n|Village|District|State)"
+    },
+    {
+      "name": "caste",
+      "pattern": "Caste[\\s:]+([A-Za-z\\s]+?)(?:\\n|Village|District|State|Father)"
+    },
+    {
+      "name": "occupation",
+      "pattern": "Occupation[\\s:]+([A-Za-z\\s]+?)(?:\\n|Village|District|State|Father)"
+    },
+    {
+      "name": "address",
+      "pattern": "Address[\\s:]+([A-Za-z0-9\\s,\\.\\-]+?)(?:\\n|Village|District|State|Father)"
+    },
+    {
+      "name": "land_description",
+      "pattern": "Land[\\s]?Description[\\s:]+([A-Za-z0-9\\s,\\.\\-]+?)(?:\\n|Area|Claim|Village)"
+    },
+    {
+      "name": "boundaries",
+      "pattern": "Boundaries[\\s:]+([A-Za-z0-9\\s,\\.\\-]+?)(?:\\n|Area|Claim|Village|Land)"
+    },
+    {
+      "name": "witnesses",
+      "pattern": "Witnesses[\\s:]+([A-Za-z0-9\\s,\\.\\-]+?)(?:\\n|Area|Claim|Village|Land)"
+    }
+  ]
+}
