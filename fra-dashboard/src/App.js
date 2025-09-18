@@ -312,7 +312,7 @@ export default function App() {
     </ResponsiveContainer>
   </div>
 </div>
-/*<div className="map-container" style={{ height: "500px" }}>
+<div className="map-container" style={{ height: "500px" }}>
   <h2 className="text-lg font-semibold mb-4 text-gray-800">
     Interactive Map View
   </h2>
@@ -324,7 +324,7 @@ export default function App() {
         } />
       </Routes>
 
-      {/* Maps Tab Content }
+      {/* Maps Tab Content*/ }
       {activeTab === 'maps' && (
         <div className="bg-white p-4 rounded-2xl shadow">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">Interactive Map</h2>
@@ -332,7 +332,7 @@ export default function App() {
             <MapView filters={filters} />
           </div>
         </div>
-      )}*/
+      )}
 
       {/* Alerts Tab Content */}
       {activeTab === 'alerts' && (
