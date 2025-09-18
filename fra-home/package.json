@@ -1,32 +1,28 @@
 {
-  "name": "fra-home",
-  "private": true,
+  "name": "fra-trinetra",
   "version": "0.0.0",
+  "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "framer-motion": "^12.23.15",
-    "lucide-react": "^0.544.0",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "framer-motion": "^10.12.16",
+    "lucide-react": "^0.291.0",
+    "leaflet": "^1.9.4",
+    "react-leaflet": "^5.0.0",
+    "react-leaflet-custom-control": "^1.5.0",
+    "leaflet-control-geocoder": "^2.4.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.35.0",
-    "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
-    "@vitejs/plugin-react": "^5.0.2",
-    "autoprefixer": "^10.4.21",
-    "eslint": "^9.35.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
-    "globals": "^16.4.0",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.13",
-    "vite": "^7.1.6"
+    "vite": "^7.1.6",
+    "@vitejs/plugin-react": "^5.1.0"
   }
 }
