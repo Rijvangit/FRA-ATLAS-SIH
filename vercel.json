@@ -6,7 +6,7 @@
       "outputDirectory": "build"
     },
     "fra-map": {
-      "root": "TINA/fra-map",
+      "root": "TINA 2/fra-map",
       "buildCommand": "npm run build",
       "outputDirectory": "dist"
     },
@@ -18,7 +18,7 @@
   },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/fra-backend-express-complete/$1" },
-    { "source": "/map/(.*)", "destination": "/TINA/fra-map/dist/index.html" },
+    { "source": "/map/(.*)", "destination": "/TINA 2/fra-map/dist/index.html" },
     { "source": "/(.*)", "destination": "/fra-dashboard/build/index.html" }
   ]
 }

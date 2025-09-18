@@ -17,7 +17,7 @@ An AI-powered Forest Rights Act (FRA) Atlas and WebGIS-based Decision Support Sy
 FRA Atlas WebGIS DSS/
 ├── fra-backend-express-complete/    # Express.js + TypeScript API
 ├── fra-dashboard/                   # React.js Dashboard
-├── TINA/fra-map/                   # Vite + React Map Component
+├── TINA 2/fra-map/                 # Vite + React Map Component
 ├── forest-alert/                   # AI Forest Alert System
 └── scripts/                        # Setup and utility scripts
 ```
@@ -152,7 +152,7 @@ fra-atlas-webgis-dss/
 │   │   └── data/
 │   │       └── data.json       # Sample data
 │   └── package.json
-├── TINA/fra-map/
+├── TINA 2/fra-map/
 │   ├── src/
 │   │   ├── App.jsx             # Map application
 │   │   ├── components/

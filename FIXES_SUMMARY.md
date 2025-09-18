@@ -15,12 +15,12 @@ This document summarizes all the discrepancies and errors that were identified a
 - **Issue**: Potential null/undefined access in map components when rendering alerts
 - **Fix**: Added proper filtering to prevent rendering invalid alert data
 - **Fix**: Enhanced error handling in API service layers
-- **Files**: `fra-dashboard/src/MapView.js`, `TINA/fra-map/src/components/MapView.jsx`
+- **Files**: `fra-dashboard/src/MapView.js`, `TINA 2/fra-map/src/components/MapView.jsx`
 
 ### 3. **API Service Error Handling**
 - **Issue**: Basic error handling without detailed error messages
 - **Fix**: Enhanced error handling with detailed error messages and content-type checking
-- **Files**: `fra-dashboard/src/services/api.js`, `TINA/fra-map/src/services/api.js`
+- **Files**: `fra-dashboard/src/services/api.js`, `TINA 2/fra-map/src/services/api.js`
 
 ### 4. **Backend Error Handling**
 - **Issue**: Generic error messages without detailed error information

@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
 
   map:
-    build: ./TINA/fra-map
+    build: ./TINA 2/fra-map
     container_name: fra-map
     environment:
       - VITE_API_URL=http://localhost:8080

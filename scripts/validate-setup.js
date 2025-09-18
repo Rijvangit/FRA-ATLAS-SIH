@@ -82,7 +82,7 @@ class SetupValidator {
       const requiredDeps = {
         'fra-backend-express-complete': ['express', 'pg', 'cors', 'helmet', 'morgan'],
         'fra-dashboard': ['react', 'react-dom', 'leaflet', 'react-leaflet', 'recharts'],
-        'TINA/fra-map': ['react', 'react-dom', 'leaflet', 'react-leaflet']
+        'TINA 2/fra-map': ['react', 'react-dom', 'leaflet', 'react-leaflet']
       };
 
       const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
@@ -264,7 +264,7 @@ class SetupValidator {
     this.log('Checking project structure...', 'info');
     this.checkDirectoryExists('fra-backend-express-complete', 'Backend directory');
     this.checkDirectoryExists('fra-dashboard', 'Dashboard directory');
-    this.checkDirectoryExists('TINA/fra-map', 'Map component directory');
+    this.checkDirectoryExists('TINA 2/fra-map', 'Map component directory');
     this.checkDirectoryExists('forest-alert', 'Forest alert directory');
     this.checkDirectoryExists('scripts', 'Scripts directory');
 
@@ -272,13 +272,13 @@ class SetupValidator {
     this.log('Checking package.json files...', 'info');
     this.checkPackageJson('fra-backend-express-complete', 'fra-backend-express-complete');
     this.checkPackageJson('fra-dashboard', 'fra-dashboard');
-    this.checkPackageJson('TINA/fra-map', 'TINA/fra-map');
+    this.checkPackageJson('TINA 2/fra-map', 'TINA 2/fra-map');
 
     // Check node_modules
     this.log('Checking dependencies...', 'info');
     this.checkNodeModules('fra-backend-express-complete', 'Backend');
     this.checkNodeModules('fra-dashboard', 'Dashboard');
-    this.checkNodeModules('TINA/fra-map', 'Map component');
+    this.checkNodeModules('TINA 2/fra-map', 'Map component');
 
     // Check environment configuration
     this.log('Checking environment configuration...', 'info');
@@ -301,7 +301,7 @@ class SetupValidator {
     this.checkFileExists('fra-backend-express-complete/src/app.ts', 'Backend app.ts');
     this.checkFileExists('fra-backend-express-complete/src/db/pool.ts', 'Database pool');
     this.checkFileExists('fra-dashboard/src/App.js', 'Dashboard App.js');
-    this.checkFileExists('TINA/fra-map/src/App.jsx', 'Map App.jsx');
+    this.checkFileExists('TINA 2/fra-map/src/App.jsx', 'Map App.jsx');
     this.checkFileExists('package.json', 'Root package.json');
 
     // Summary

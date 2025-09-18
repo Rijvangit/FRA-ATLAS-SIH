@@ -121,7 +121,7 @@ services:
       - REACT_APP_API_URL=http://localhost:8080
 
   map:
-    build: ./TINA/fra-map
+    build: ./TINA 2/fra-map
     ports:
       - "5173:5173"
     environment:
@@ -399,7 +399,7 @@ Dashboard (Create React App)
   - `REACT_APP_API_URL=https://<your-heroku-app>.herokuapp.com`
 
 Map (Vite React)
-- Project root: `TINA/fra-map`
+- Project root: `TINA 2/fra-map`
 - Framework: Vite
 - Build Command: `npm run build`
 - Output Directory: `dist`

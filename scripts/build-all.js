@@ -31,8 +31,8 @@ try {
 
 // Map
 try {
-  run("npm install", "TINA/fra-map");
-  run("npm run build", "TINA/fra-map");
+  run("npm install", "TINA 2/fra-map");
+  run("npm run build", "TINA 2/fra-map");
   console.log("✅ Map built successfully");
 } catch (err) {
   console.error("❌ Map build failed");
