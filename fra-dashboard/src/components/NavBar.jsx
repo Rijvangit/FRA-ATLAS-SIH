@@ -35,6 +35,7 @@ export default function NavBar({ activeTab, onNavigate }) {
   return (
     <div className="nav-wrap">
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        {/* 
         <Button active={activeTab === 'dashboard'} onClick={() => onNavigate('dashboard')} icon="dashboard">Dashboard</Button>
         <Button active={activeTab === 'maps'} onClick={() => onNavigate('maps')} icon="map">Maps</Button>
         <Button active={activeTab === 'alerts'} onClick={() => onNavigate('alerts')} icon="alerts">Alerts</Button>
@@ -48,10 +49,8 @@ export default function NavBar({ activeTab, onNavigate }) {
         <button onClick={() => window.history.back()} className="px-3 py-2 rounded-lg font-medium flex items-center gap-2 bg-[#f3f4f6] text-[#374151] hover:bg-[#e5e7eb]" title="Go Back">
           <Icon name="back" /> Back
         </button>
+        */}
       </div>
     </div>
   );
 }
-
-
-
