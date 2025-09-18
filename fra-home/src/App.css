@@ -1,0 +1,164 @@
+/* ------------------------------
+  Global styles
+--------------------------------*/
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background: #0f172a;
+  color: white;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ------------------------------
+  Floating glowing blobs animation
+--------------------------------*/
+@keyframes blob {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+.animate-blob {
+  animation: blob 8s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+/* ------------------------------
+  Main card styling
+--------------------------------*/
+.main-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 2rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.main-card h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  margin-bottom: 2.5rem;
+}
+
+/* ------------------------------
+  Button styles
+--------------------------------*/
+.layer-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.25rem 2rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-radius: 1.5rem;
+  background-color: #2563eb;
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+
+.layer-button:hover {
+  transform: scale(1.05);
+  background-color: #1e40af;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+}
+
+.layer-button:active {
+  transform: scale(0.95);
+}
+
+/* ------------------------------
+  Footer styling
+--------------------------------*/
+footer {
+  text-align: center;
+  color: rgba(255,255,255,0.7);
+  padding: 1.5rem 1rem;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  font-size: 0.875rem;
+}
+
+footer a {
+  margin: 0 0.75rem;
+  color: rgba(255,255,255,0.7);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #fff;
+}
+
+/* ------------------------------
+  Tribal pattern corners
+--------------------------------*/
+.tribal-corner {
+  border-color: rgba(252, 211, 77, 0.8);
+  width: 8rem;
+  height: 8rem;
+  position: absolute;
+  z-index: 10;
+}
+
+.tribal-top-left {
+  top: 0;
+  left: 0;
+  border-top: 4px solid;
+  border-left: 4px solid;
+  transform: rotate(45deg);
+}
+
+.tribal-bottom-right {
+  bottom: 0;
+  right: 0;
+  border-bottom: 4px solid;
+  border-right: 4px solid;
+  transform: rotate(-45deg);
+}
+
+/* ------------------------------
+  Background tribal pattern
+--------------------------------*/
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/tribal-pattern.svg') center/cover no-repeat;
+  opacity: 0.1;
+  z-index: -1;
+}
+
+/* ------------------------------
+  Responsive tweaks
+--------------------------------*/
+@media (max-width: 768px) {
+  .main-card {
+    padding: 2rem 1rem;
+  }
+
+  .main-card h1 {
+    font-size: 3rem;
+  }
+
+  .layer-button {
+    font-size: 1.1rem;
+    padding: 1rem 1.5rem;
+  }
+}

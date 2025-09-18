@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom animations for floating shapes */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 8s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+/* Optional: smooth transitions for hover effects */
+button {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Make scrollbars invisible (optional for full-screen portal look) */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Ensure body and html take full height */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Optional tribal card border effect */
+.rounded-3xl {
+  border-radius: 2rem;
+}
+
+/* Optional: make motion divs smoother */
+.motion-div {
+  transition: all 0.5s ease-in-out;
+}
+
+/* Drop shadow for text readability over tribal background */
+.text-white {
+  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+/* Footer links hover effect */
+footer a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
