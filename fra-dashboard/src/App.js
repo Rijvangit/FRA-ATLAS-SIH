@@ -223,108 +223,85 @@ export default function App() {
                 </button>
               </div>
             </div>
-{/* Charts */}
-<div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-  {/* Bar Chart - State/District wise */}
-  <div className="chart-container h-80">
-    <h2 className="text-lg font-semibold mb-4 text-gray-800">
-      State-wise Approvals
-    </h2>
-    <ResponsiveContainer width="100%" height={250}>
-      <BarChart data={filteredData}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-        <XAxis dataKey="state" tick={{ fontSize: 12 }} />
-        <YAxis tick={{ fontSize: 12 }} />
-        <Tooltip 
-          contentStyle={{ 
-            backgroundColor: 'white', 
-            border: '1px solid #e5e7eb', 
-            borderRadius: '8px',
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-          }} 
-        />
-        <Bar dataKey="approved" fill="#22c55e" radius={[4, 4, 0, 0]} />
-      </BarChart>
-    </ResponsiveContainer>
-  </div>
 
-  {/* Line Chart - Yearly Trends */}
-  <div className="chart-container h-80">
-    <h2 className="text-lg font-semibold mb-4 text-gray-800">
-      Yearly Trends
-    </h2>
-    <ResponsiveContainer width="100%" height={250}>
-      <LineChart data={filteredData}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-        <XAxis dataKey="year" tick={{ fontSize: 12 }} />
-        <YAxis tick={{ fontSize: 12 }} />
-        <Tooltip 
-          contentStyle={{ 
-            backgroundColor: 'white', 
-            border: '1px solid #e5e7eb', 
-            borderRadius: '8px',
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-          }} 
-        />
-        <Line type="monotone" dataKey="approved" stroke="#3b82f6" strokeWidth={3} dot={{ fill: '#3b82f6', strokeWidth: 2, r: 4 }} />
-        <Line type="monotone" dataKey="pending" stroke="#eab308" strokeWidth={3} dot={{ fill: '#eab308', strokeWidth: 2, r: 4 }} />
-        <Line type="monotone" dataKey="rejected" stroke="#ef4444" strokeWidth={3} dot={{ fill: '#ef4444', strokeWidth: 2, r: 4 }} />
-      </LineChart>
-    </ResponsiveContainer>
-  </div>
+            {/* Charts */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+              {/* Bar Chart */}
+              <div className="chart-container h-80">
+                <h2 className="text-lg font-semibold mb-4 text-gray-800">
+                  State-wise Approvals
+                </h2>
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={filteredData}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                    <XAxis dataKey="state" tick={{ fontSize: 12 }} />
+                    <YAxis tick={{ fontSize: 12 }} />
+                    <Tooltip />
+                    <Bar dataKey="approved" fill="#22c55e" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
 
-  {/* Pie Chart - Individual vs Community */}
-  <div className="chart-container h-80">
-    <h2 className="text-lg font-semibold mb-4 text-gray-800">
-      Claim Type Distribution
-    </h2>
-    <ResponsiveContainer width="100%" height={250}>
-      <PieChart>
-        <Pie
-          data={[
-            {
-              name: "Individual",
-              value: filteredData.filter((d) => d.type === "individual").length
-            },
-            {
-              name: "Community",
-              value: filteredData.filter((d) => d.type === "community").length
-            }
-          ]}
-          cx="50%"
-          cy="50%"
-          outerRadius={80}
-          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-          dataKey="value"
-        >
-          <Cell fill="#3b82f6" />
-          <Cell fill="#22c55e" />
-        </Pie>
-        <Tooltip 
-          contentStyle={{ 
-            backgroundColor: 'white', 
-            border: '1px solid #e5e7eb', 
-            borderRadius: '8px',
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-          }} 
-        />
-      </PieChart>
-    </ResponsiveContainer>
-  </div>
-</div>
-<div className="map-container" style={{ height: "500px" }}>
-  <h2 className="text-lg font-semibold mb-4 text-gray-800">
-    Interactive Map View
-  </h2>
-  <div style={{ height: "100%", width: "100%" }}>
-    <MapView filters={filters} />
-  </div>
-</div>
+              {/* Line Chart */}
+              <div className="chart-container h-80">
+                <h2 className="text-lg font-semibold mb-4 text-gray-800">
+                  Yearly Trends
+                </h2>
+                <ResponsiveContainer width="100%" height={250}>
+                  <LineChart data={filteredData}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                    <XAxis dataKey="year" tick={{ fontSize: 12 }} />
+                    <YAxis tick={{ fontSize: 12 }} />
+                    <Tooltip />
+                    <Line type="monotone" dataKey="approved" stroke="#3b82f6" strokeWidth={3} />
+                    <Line type="monotone" dataKey="pending" stroke="#eab308" strokeWidth={3} />
+                    <Line type="monotone" dataKey="rejected" stroke="#ef4444" strokeWidth={3} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Pie Chart */}
+              <div className="chart-container h-80">
+                <h2 className="text-lg font-semibold mb-4 text-gray-800">
+                  Claim Type Distribution
+                </h2>
+                <ResponsiveContainer width="100%" height={250}>
+                  <PieChart>
+                    <Pie
+                      data={[
+                        { name: "Individual", value: filteredData.filter((d) => d.type === "individual").length },
+                        { name: "Community", value: filteredData.filter((d) => d.type === "community").length }
+                      ]}
+                      cx="50%" cy="50%" outerRadius={80}
+                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                      dataKey="value"
+                    >
+                      <Cell fill="#3b82f6" />
+                      <Cell fill="#22c55e" />
+                    </Pie>
+                    <Tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Interactive Map Section (commented out) */}
+            {/*
+            <div className="map-container" style={{ height: "500px" }}>
+              <h2 className="text-lg font-semibold mb-4 text-gray-800">
+                Interactive Map View
+              </h2>
+              <div style={{ height: "100%", width: "100%" }}>
+                <MapView filters={filters} />
+              </div>
+            </div>
+            */}
           </div>
         } />
       </Routes>
 
-      {/* Maps Tab Content */}
+      {/* Maps Tab Content (commented out) */}
+      {/*
       {activeTab === 'maps' && (
         <div className="bg-white p-4 rounded-2xl shadow">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">Interactive Map</h2>
@@ -333,6 +310,7 @@ export default function App() {
           </div>
         </div>
       )}
+      */}
 
       {/* Alerts Tab Content */}
       {activeTab === 'alerts' && (
