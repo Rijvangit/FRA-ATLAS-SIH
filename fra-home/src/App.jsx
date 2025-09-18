@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Map, AlertCircle, LayoutDashboard, UploadCloud } from "lucide-react";
-import './app.css';
+import './App.css';
 
 export default function App() {
   const layers = [
