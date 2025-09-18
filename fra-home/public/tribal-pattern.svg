@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <defs>
+    <pattern id="tribal" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="80" height="80" fill="#f8f8f8"/>
+      <path d="M0 0 L40 80 L80 0 Z" fill="#1e3a8a" />
+      <circle cx="40" cy="40" r="10" fill="#2563eb" />
+    </pattern>
+  </defs>
+  <rect width="800" height="800" fill="url(#tribal)" />
+</svg>
