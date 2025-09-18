@@ -3,8 +3,9 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-control-geocoder";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
+import { motion } from "framer-motion";
 
-function App() {
+function FRAAtlas() {
   useEffect(() => {
     const map = L.map("map").setView([22.5, 78.9], 5);
 
@@ -12,7 +13,6 @@ function App() {
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(map);
 
-    // Helper: status colors
     const getStatusColor = (status) => {
       if (!status) return "blue";
       switch (status.toLowerCase()) {
@@ -23,30 +23,20 @@ function App() {
       }
     };
 
-    // Load MP polygons
-    fetch("/Madhya_Pradesh_subdistricts.geojson")
-      .then((res) => res.json())
-      .then((data) => {
-        L.geoJSON(data, {
-          style: { color: "blue", weight: 1, fillOpacity: 0.1 },
-        }).addTo(map);
-      });
+    // Load polygons and claims
+    const loadGeoJSON = (url, style = {}) =>
+      fetch(url)
+        .then(res => res.json())
+        .then(data => L.geoJSON(data, style).addTo(map));
 
-    // Load Telangana polygons
-    fetch("/Telangana_subdistricts.geojson")
-      .then((res) => res.json())
-      .then((data) => {
-        L.geoJSON(data, {
-          style: { color: "blue", weight: 1, fillOpacity: 0.1 },
-        }).addTo(map);
-      });
+    loadGeoJSON("/Madhya_Pradesh_subdistricts.geojson", { style: { color: "blue", weight: 1, fillOpacity: 0.1 } });
+    loadGeoJSON("/Telangana_subdistricts.geojson", { style: { color: "blue", weight: 1, fillOpacity: 0.1 } });
 
-    // Load FRA claims with color by status
     fetch("/fra_claims.geojson")
-      .then((res) => res.json())
-      .then((data) => {
+      .then(res => res.json())
+      .then(data => {
         L.geoJSON(data, {
-          style: (feature) => ({
+          style: feature => ({
             color: getStatusColor(feature.properties.claim_status),
             fillColor: getStatusColor(feature.properties.claim_status),
             weight: 2,
@@ -75,11 +65,9 @@ function App() {
     };
     resetControl.addTo(map);
 
-    // Search bar with auto zoom
-    L.Control.geocoder({
-      defaultMarkGeocode: false,
-    })
-      .on("markgeocode", function (e) {
+    // Geocoder search
+    L.Control.geocoder({ defaultMarkGeocode: false })
+      .on("markgeocode", e => {
         const bbox = e.geocode.bbox;
         const poly = L.polygon([
           [bbox.getSouthEast().lat, bbox.getSouthEast().lng],
@@ -94,7 +82,65 @@ function App() {
     return () => map.remove();
   }, []);
 
-  return <div id="map" style={{ height: "100vh", width: "100%" }} />;
+  return (
+    <div style={{
+      minHeight: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      position: "relative",
+      background: 'url("/forest-texture.jpg") center/cover no-repeat',
+    }}>
+      {/* Floating Blobs */}
+      <motion.div
+        className="absolute top-10 left-10 w-60 h-60 rounded-full z-0"
+        style={{
+          background: 'linear-gradient(135deg, #a0e9ff, #4facfe)',
+          filter: 'blur(80px)',
+        }}
+        animate={{ y: [0, 50, 0], x: [0, 50, 0] }}
+        transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+      />
+      <motion.div
+        className="absolute bottom-20 right-10 w-80 h-80 rounded-full z-0"
+        style={{
+          background: 'linear-gradient(135deg, #00f2fe, #1e90ff)',
+          filter: 'blur(100px)',
+        }}
+        animate={{ y: [0, -50, 0], x: [0, -50, 0] }}
+        transition={{ duration: 2.5, repeat: Infinity, repeatType: "reverse" }}
+      />
+
+      {/* Map Card */}
+      <div style={{
+        width: "95%",
+        maxWidth: "1200px",
+        height: "80vh",
+        backgroundColor: "rgba(255,255,255,0.95)",
+        borderRadius: "2rem",
+        boxShadow: "0 20px 50px rgba(0,0,0,0.08)",
+        overflow: "hidden",
+        zIndex: 10,
+      }}>
+        <div id="map" style={{ height: "100%", width: "100%" }} />
+      </div>
+
+      {/* Footer */}
+      <footer style={{
+        marginTop: '2rem',
+        width: '100%',
+        textAlign: 'center',
+        color: '#333',
+        backgroundColor: 'rgba(255,255,255,0.7)',
+        padding: '1rem 0',
+        borderRadius: '1rem',
+        zIndex: 10,
+      }}>
+        <p>© {new Date().getFullYear()} TRINETRA Project. All rights reserved.</p>
+      </footer>
+    </div>
+  );
 }
 
-export default App;
+export default FRAAtlas;
