@@ -163,25 +163,168 @@ export default function App() {
             )}
 
             {/* Filters */}
-            {/* ...filters + charts code kept as is... */}
-
-            {/* Commented out Interactive Map View inside Dashboard */}
-            {/*
-            <div className="map-container" style={{ height: "500px" }}>
-              <h2 className="text-lg font-semibold mb-4 text-gray-800">
-                Interactive Map View
+            <div className="filter-section">
+              <h2 className="text-xl font-bold mb-4 text-gray-800">
+                Filters
               </h2>
-              <div style={{ height: "100%", width: "100%" }}>
-                <MapView filters={filters} />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
+                  <select 
+                    value={filters.state} 
+                    onChange={(e) => handleFilterChange('state', e.target.value)}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors custom-select"
+                  >
+                    {filterOptions.states.map(state => (
+                      <option key={state} value={state}>
+                        {state === 'all' ? 'All States' : state}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Year</label>
+                  <select 
+                    value={filters.year} 
+                    onChange={(e) => handleFilterChange('year', e.target.value)}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors custom-select"
+                  >
+                    {filterOptions.years.map(year => (
+                      <option key={year} value={year}>
+                        {year === 'all' ? 'All Years' : year}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Claim Type</label>
+                  <select 
+                    value={filters.claimType} 
+                    onChange={(e) => handleFilterChange('claimType', e.target.value)}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors custom-select"
+                  >
+                    {filterOptions.claimTypes.map(type => (
+                      <option key={type} value={type}>
+                        {type === 'all' ? 'All Claim Types' : type.charAt(0).toUpperCase() + type.slice(1)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="mt-6 flex items-center justify-between">
+                <div className="text-sm text-gray-600">
+                  Showing {filteredData.length} of {data.claims.length} claims
+                </div>
+                <button 
+                  onClick={() => setFilters({ state: 'all', year: 'all', claimType: 'all' })}
+                  className="btn-primary text-sm"
+                >
+                  Clear Filters
+                </button>
               </div>
             </div>
-            */}
+{/* Charts */}
+<div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+  {/* Bar Chart - State/District wise */}
+  <div className="chart-container h-80">
+    <h2 className="text-lg font-semibold mb-4 text-gray-800">
+      State-wise Approvals
+    </h2>
+    <ResponsiveContainer width="100%" height={250}>
+      <BarChart data={filteredData}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+        <XAxis dataKey="state" tick={{ fontSize: 12 }} />
+        <YAxis tick={{ fontSize: 12 }} />
+        <Tooltip 
+          contentStyle={{ 
+            backgroundColor: 'white', 
+            border: '1px solid #e5e7eb', 
+            borderRadius: '8px',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+          }} 
+        />
+        <Bar dataKey="approved" fill="#22c55e" radius={[4, 4, 0, 0]} />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+
+  {/* Line Chart - Yearly Trends */}
+  <div className="chart-container h-80">
+    <h2 className="text-lg font-semibold mb-4 text-gray-800">
+      Yearly Trends
+    </h2>
+    <ResponsiveContainer width="100%" height={250}>
+      <LineChart data={filteredData}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+        <XAxis dataKey="year" tick={{ fontSize: 12 }} />
+        <YAxis tick={{ fontSize: 12 }} />
+        <Tooltip 
+          contentStyle={{ 
+            backgroundColor: 'white', 
+            border: '1px solid #e5e7eb', 
+            borderRadius: '8px',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+          }} 
+        />
+        <Line type="monotone" dataKey="approved" stroke="#3b82f6" strokeWidth={3} dot={{ fill: '#3b82f6', strokeWidth: 2, r: 4 }} />
+        <Line type="monotone" dataKey="pending" stroke="#eab308" strokeWidth={3} dot={{ fill: '#eab308', strokeWidth: 2, r: 4 }} />
+        <Line type="monotone" dataKey="rejected" stroke="#ef4444" strokeWidth={3} dot={{ fill: '#ef4444', strokeWidth: 2, r: 4 }} />
+      </LineChart>
+    </ResponsiveContainer>
+  </div>
+
+  {/* Pie Chart - Individual vs Community */}
+  <div className="chart-container h-80">
+    <h2 className="text-lg font-semibold mb-4 text-gray-800">
+      Claim Type Distribution
+    </h2>
+    <ResponsiveContainer width="100%" height={250}>
+      <PieChart>
+        <Pie
+          data={[
+            {
+              name: "Individual",
+              value: filteredData.filter((d) => d.type === "individual").length
+            },
+            {
+              name: "Community",
+              value: filteredData.filter((d) => d.type === "community").length
+            }
+          ]}
+          cx="50%"
+          cy="50%"
+          outerRadius={80}
+          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+          dataKey="value"
+        >
+          <Cell fill="#3b82f6" />
+          <Cell fill="#22c55e" />
+        </Pie>
+        <Tooltip 
+          contentStyle={{ 
+            backgroundColor: 'white', 
+            border: '1px solid #e5e7eb', 
+            borderRadius: '8px',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+          }} 
+        />
+      </PieChart>
+    </ResponsiveContainer>
+  </div>
+</div>
+<div className="map-container" style={{ height: "500px" }}>
+  <h2 className="text-lg font-semibold mb-4 text-gray-800">
+    Interactive Map View
+  </h2>
+  <div style={{ height: "100%", width: "100%" }}>
+    <MapView filters={filters} />
+  </div>
+</div>
           </div>
         } />
       </Routes>
 
-      {/* Commented out Maps Tab Content */}
-      {/*
+      {/* Maps Tab Content */}
       {activeTab === 'maps' && (
         <div className="bg-white p-4 rounded-2xl shadow">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">Interactive Map</h2>
@@ -190,10 +333,8 @@ export default function App() {
           </div>
         </div>
       )}
-      */}
 
-      {/* Commented out Alerts Tab Content */}
-      {/*
+      {/* Alerts Tab Content */}
       {activeTab === 'alerts' && (
         <div className="bg-white p-4 rounded-2xl shadow">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">Recent Alerts</h2>
@@ -221,14 +362,13 @@ export default function App() {
           </div>
         </div>
       )}
-      */}
 
-      {/* Commented out OCR Tab Content */}
-      {/*
+      {/* OCR Tab Content */}
       {activeTab === 'ocr' && (
         <OCRUpload />
       )}
-      */}
+
     </div>
   );
 }
+I want changes in this
