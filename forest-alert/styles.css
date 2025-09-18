@@ -2,8 +2,9 @@
 .govbar{background:#0b3d91;color:#ffffff;font-size:12px}
 .govbar-inner{max-width:1200px;margin:0 auto;padding:6px 16px;display:flex;align-items:center;justify-content:space-between}
 .govbar a{color:#cfe0f5;text-decoration:none;margin-left:12px}
-header{padding:16px 20px;border-bottom:1px solid #e5eef7;background:linear-gradient(180deg,#f6fbff,#eef5ff)}
+header{padding:16px 20px;border-bottom:1px solid #e5eef7;background:linear-gradient(180deg,#f6fbff,#eef5ff);display:flex;align-items:center;gap:12px}
 h1{margin:0;font-size:22px} .subtitle{margin:4px 0 0 0;color:#2a5ca5;font-size:13px;font-weight:600}
+.mota-logo{height:34px;width:auto}
 .navbar{border-bottom:1px solid #e5eef7;background:#ffffff}
 .nav-inner{max-width:1200px;margin:0 auto;padding:8px 16px;display:flex;gap:18px}
 .nav-link{color:#1b2a4a;text-decoration:none;font-size:13px;padding:6px 4px}
