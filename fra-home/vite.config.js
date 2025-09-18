@@ -1,7 +1,31 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-})
+  optimizeDeps: {
+    include: [
+      'react',
+      'react-dom',
+      'framer-motion',
+      'lucide-react',
+      'leaflet',
+      'react-leaflet',
+      'react-leaflet-custom-control',
+      'leaflet-control-geocoder'
+    ]
+  },
+  resolve: {
+    alias: {
+      react: require.resolve('react')
+    }
+  },
+  server: {
+    port: 5173,
+    open: true,
+    strictPort: true
+  },
+  build: {
+    sourcemap: true
+  }
+});
