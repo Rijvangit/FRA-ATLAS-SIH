@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import data from "./data.json";
-import OCRUploadWrapper from "./components/OCRUploadWrapper";
+import OCRUpload from "./components/OCRUpload";
 import apiService from "./services/api";
 
 import {
@@ -342,7 +342,7 @@ export default function App() {
 
       {/* OCR Tab Content */}
       {activeTab === 'ocr' && (
-        <OCRUploadWrapper />
+        <OCRUpload />
       )}
 
     </div>
