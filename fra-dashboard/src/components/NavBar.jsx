@@ -20,17 +20,6 @@ const Icon = ({ name, size = 16 }) => {
 };
 
 export default function NavBar({ activeTab, onNavigate }) {
-  const Button = ({ active, onClick, icon, children }) => (
-    <button
-      onClick={onClick}
-      className={`px-3 py-2 rounded-lg font-medium flex items-center gap-2 ${
-        active ? 'bg-[#1f7aec] text-white' : 'bg-[#f3f4f6] text-[#374151] hover:bg-[#e5e7eb]'
-      }`}
-    >
-      <Icon name={icon} />
-      <span>{children}</span>
-    </button>
-  );
 
   return (
     <div className="nav-wrap">
