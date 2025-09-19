@@ -4,7 +4,7 @@ import './App.css';
 
 export default function App() {
   const layers = [
-    { id: "upload", label: "UPLOAD/SCAN", icon: <UploadCloud className="w-6 h-6" />, url: "https://your-upload-link.com" }, // replace with your upload link
+    { id: "upload", label: "UPLOAD/SCAN", icon: <UploadCloud className="w-6 h-6" />, url: "https://fra-t-front.onrender.com/ocr" }, // replace with your upload link
     { id: "atlas", label: "FRA ATLAS", icon: <Map className="w-6 h-6" />, url: "https://trinetra-map1.onrender.com/" },
     { id: "alert", label: "ALERT SYSTEM", icon: <AlertCircle className="w-6 h-6" />, url: "https://fra-trinetralert.onrender.com/" },
     { id: "dashboard", label: "DASHBOARD", icon: <LayoutDashboard className="w-6 h-6" />, url: "https://fra-t-front.onrender.com/" },
