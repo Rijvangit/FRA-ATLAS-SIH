@@ -111,6 +111,42 @@ class ApiService {
   async getOCRResult(id) {
     return this.request(`/api/ocr/results/${id}`);
   }
+
+  // Enhanced OCR API methods
+  async processImage(formData) {
+    return this.request('/api/ocr/process-image', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        // Don't set Content-Type, let browser set it with boundary
+      }
+    });
+  }
+
+  async processFRAImage(formData) {
+    return this.request('/api/ocr/process-fra-image', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        // Don't set Content-Type, let browser set it with boundary
+      }
+    });
+  }
+
+  async getOCRHealth() {
+    return this.request('/api/ocr/health');
+  }
+
+  // Handwritten document processing
+  async processHandwritten(formData) {
+    return this.request('/api/ocr/process-handwritten', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        // Don't set Content-Type, let browser set it with boundary
+      }
+    });
+  }
 }
 
 // Create and export a singleton instance

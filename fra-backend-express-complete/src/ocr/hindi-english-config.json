@@ -1,0 +1,237 @@
+{
+  "fields": [
+    {
+      "name": "claimant_name",
+      "pattern": "(?:Claimant\\s+Name|नाम|आवेदक\\s+का\\s+नाम|नामांकित)[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Village|District|State|Claim|Father|ग्राम|जिला|राज्य|पिता)",
+      "alternatives": [
+        "Name[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Village|District|State|Claim)",
+        "Applicant[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Village|District|State|Claim)",
+        "नाम[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|ग्राम|जिला|राज्य)",
+        "आवेदक[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|ग्राम|जिला|राज्य)",
+        "कार्यपालन[\\s]+यंत्री[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|ग्राम|जिला|राज्य)"
+      ],
+      "confidence": 0.6
+    },
+    {
+      "name": "village_name",
+      "pattern": "(?:Village|ग्राम|गाँव|ग्रामीण)[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|District|State|Block|Claim|Taluka|जिला|राज्य|ब्लॉक|तहसील)",
+      "alternatives": [
+        "Village\\s+Name[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|District|State|Block|Claim)",
+        "Gram[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|District|State|Block|Claim)",
+        "ग्राम[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|जिला|राज्य|ब्लॉक)",
+        "गाँव[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|जिला|राज्य|ब्लॉक)",
+        "ग्रामीण[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|जिला|राज्य|ब्लॉक)"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "name": "district",
+      "pattern": "(?:District|जिला|ज़िला|जिले)[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|State|Block|Village|Claim|Taluka|राज्य|ब्लॉक|ग्राम)",
+      "alternatives": [
+        "District\\s+Name[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|State|Block|Village|Claim)",
+        "Zilla[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|State|Block|Village|Claim)",
+        "जिला[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|राज्य|ब्लॉक|ग्राम)",
+        "ज़िला[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|राज्य|ब्लॉक|ग्राम)",
+        "जिले[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|राज्य|ब्लॉक|ग्राम)"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "name": "state",
+      "pattern": "(?:State|राज्य|प्रदेश)[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|District|Block|Village|Claim|$|जिला|ब्लॉक|ग्राम)",
+      "alternatives": [
+        "State\\s+Name[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|District|Block|Village|Claim)",
+        "राज्य[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|जिला|ब्लॉक|ग्राम)",
+        "प्रदेश[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|जिला|ब्लॉक|ग्राम)",
+        "मध्य[\\s]+प्रदेश[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|जिला|ब्लॉक|ग्राम)"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "name": "claim_number",
+      "pattern": "(?:Claim|दावा|आवेदन|Case|कैस|पत्र[\\s]+क्रमांक|Letter[\\s]+No)[\\s#:]+([A-Z0-9\\-\\/]+)",
+      "alternatives": [
+        "Claim\\s+No[\\s#:]+([A-Z0-9\\-\\/]+)",
+        "Application[\\s#:]+([A-Z0-9\\-\\/]+)",
+        "Case[\\s#:]+([A-Z0-9\\-\\/]+)",
+        "दावा[\\s#:]+([A-Z0-9\\-\\/]+)",
+        "आवेदन[\\s#:]+([A-Z0-9\\-\\/]+)",
+        "पत्र[\\s]+क्रमांक[\\s#:]+([A-Z0-9\\-\\/]+)",
+        "Letter[\\s]+No[\\s#:]+([A-Z0-9\\-\\/]+)",
+        "Reference[\\s#:]+([A-Z0-9\\-\\/]+)"
+      ],
+      "confidence": 0.7
+    },
+    {
+      "name": "area_hectares",
+      "pattern": "(?:Area|क्षेत्र|भूमि|Land)[\\s:]+([0-9]+(?:\\.[0-9]+)?)\\s*(?:hectares?|हेक्टेयर|ha|हेक्टर)",
+      "alternatives": [
+        "Area[\\s:]+([0-9]+(?:\\.[0-9]+)?)\\s*ha",
+        "Land[\\s:]+([0-9]+(?:\\.[0-9]+)?)\\s*hectares?",
+        "Size[\\s:]+([0-9]+(?:\\.[0-9]+)?)\\s*hectares?",
+        "क्षेत्र[\\s:]+([0-9]+(?:\\.[0-9]+)?)\\s*हेक्टेयर",
+        "भूमि[\\s:]+([0-9]+(?:\\.[0-9]+)?)\\s*हेक्टेयर",
+        "जमीन[\\s:]+([0-9]+(?:\\.[0-9]+)?)\\s*हेक्टेयर"
+      ],
+      "confidence": 0.6
+    },
+    {
+      "name": "date_submitted",
+      "pattern": "(?:Date[\\s]+Submitted|Submitted|Application[\\s]+Date|Date|दिनांक|तारीख)[\\s:]+([0-9]{1,2}[\\/\\-][0-9]{1,2}[\\/\\-][0-9]{2,4})",
+      "alternatives": [
+        "Submitted[\\s:]+([0-9]{1,2}[\\/\\-][0-9]{1,2}[\\/\\-][0-9]{2,4})",
+        "Application[\\s]+Date[\\s:]+([0-9]{1,2}[\\/\\-][0-9]{1,2}[\\/\\-][0-9]{2,4})",
+        "Date[\\s:]+([0-9]{1,2}[\\/\\-][0-9]{1,2}[\\/\\-][0-9]{2,4})",
+        "दिनांक[\\s:]+([0-9]{1,2}[\\/\\-][0-9]{1,2}[\\/\\-][0-9]{2,4})",
+        "तारीख[\\s:]+([0-9]{1,2}[\\/\\-][0-9]{1,2}[\\/\\-][0-9]{2,4})",
+        "Filing[\\s]+Date[\\s:]+([0-9]{1,2}[\\/\\-][0-9]{1,2}[\\/\\-][0-9]{2,4})"
+      ],
+      "confidence": 0.6
+    },
+    {
+      "name": "land_type",
+      "pattern": "(?:Land[\\s]?Type|Type[\\s]+of[\\s]+Land|Category|भूमि[\\s]+का[\\s]+प्रकार|भूमि[\\s]+प्रकार)[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Area|Claim|Village|क्षेत्र|दावा|ग्राम)",
+      "alternatives": [
+        "Type[\\s]+of[\\s]+Land[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Area|Claim|Village)",
+        "Category[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Area|Claim|Village)",
+        "भूमि[\\s]+का[\\s]+प्रकार[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|क्षेत्र|दावा|ग्राम)",
+        "भूमि[\\s]+प्रकार[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|क्षेत्र|दावा|ग्राम)",
+        "जमीन[\\s]+का[\\s]+प्रकार[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|क्षेत्र|दावा|ग्राम)"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "name": "father_husband_name",
+      "pattern": "(?:Father[\\s/]Husband|Father|Husband|Guardian|पिता[\\s/]पति|पिता|पति|अभिभावक)[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Village|District|State|ग्राम|जिला|राज्य)",
+      "alternatives": [
+        "Father[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Village|District|State)",
+        "Husband[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Village|District|State)",
+        "Guardian[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Village|District|State)",
+        "पिता[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|ग्राम|जिला|राज्य)",
+        "पति[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|ग्राम|जिला|राज्य)",
+        "अभिभावक[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|ग्राम|जिला|राज्य)"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "name": "caste",
+      "pattern": "(?:Caste|Community|Category|जाति|समुदाय|श्रेणी)[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Village|District|State|Father|ग्राम|जिला|राज्य|पिता)",
+      "alternatives": [
+        "Community[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Village|District|State|Father)",
+        "Category[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Village|District|State|Father)",
+        "जाति[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|ग्राम|जिला|राज्य|पिता)",
+        "समुदाय[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|ग्राम|जिला|राज्य|पिता)",
+        "श्रेणी[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|ग्राम|जिला|राज्य|पिता)"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "name": "occupation",
+      "pattern": "(?:Occupation|Profession|Work|Job|व्यवसाय|पेशा|काम)[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Village|District|State|Father|ग्राम|जिला|राज्य|पिता)",
+      "alternatives": [
+        "Profession[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Village|District|State|Father)",
+        "Work[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Village|District|State|Father)",
+        "Job[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|Village|District|State|Father)",
+        "व्यवसाय[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|ग्राम|जिला|राज्य|पिता)",
+        "पेशा[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|ग्राम|जिला|राज्य|पिता)",
+        "काम[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|ग्राम|जिला|राज्य|पिता)"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "name": "address",
+      "pattern": "(?:Address|Residence|Location|Dwelling|पता|निवास|स्थान)[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Village|District|State|Father|ग्राम|जिला|राज्य|पिता)",
+      "alternatives": [
+        "Residence[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Village|District|State|Father)",
+        "Location[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Village|District|State|Father)",
+        "Dwelling[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Village|District|State|Father)",
+        "पता[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|ग्राम|जिला|राज्य|पिता)",
+        "निवास[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|ग्राम|जिला|राज्य|पिता)",
+        "स्थान[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|ग्राम|जिला|राज्य|पिता)"
+      ],
+      "confidence": 0.4
+    },
+    {
+      "name": "land_description",
+      "pattern": "(?:Land[\\s]?Description|Description|Details|भूमि[\\s]+विवरण|विवरण|विस्तार)[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Area|Claim|Village|क्षेत्र|दावा|ग्राम)",
+      "alternatives": [
+        "Description[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Area|Claim|Village)",
+        "Details[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Area|Claim|Village)",
+        "भूमि[\\s]+विवरण[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|क्षेत्र|दावा|ग्राम)",
+        "विवरण[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|क्षेत्र|दावा|ग्राम)",
+        "विस्तार[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|क्षेत्र|दावा|ग्राम)"
+      ],
+      "confidence": 0.4
+    },
+    {
+      "name": "boundaries",
+      "pattern": "(?:Boundaries|Boundary|Limits|Borders|सीमाएं|सीमा|हद|सरहद)[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Area|Claim|Village|Land|क्षेत्र|दावा|ग्राम|भूमि)",
+      "alternatives": [
+        "Boundary[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Area|Claim|Village|Land)",
+        "Limits[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Area|Claim|Village|Land)",
+        "Borders[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Area|Claim|Village|Land)",
+        "सीमाएं[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|क्षेत्र|दावा|ग्राम|भूमि)",
+        "सीमा[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|क्षेत्र|दावा|ग्राम|भूमि)",
+        "हद[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|क्षेत्र|दावा|ग्राम|भूमि)"
+      ],
+      "confidence": 0.4
+    },
+    {
+      "name": "witnesses",
+      "pattern": "(?:Witnesses|Witness|Signatories|Attestors|गवाह|साक्षी|हस्ताक्षरकर्ता)[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Area|Claim|Village|Land|क्षेत्र|दावा|ग्राम|भूमि)",
+      "alternatives": [
+        "Witness[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Area|Claim|Village|Land)",
+        "Signatories[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Area|Claim|Village|Land)",
+        "Attestors[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Area|Claim|Village|Land)",
+        "गवाह[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|क्षेत्र|दावा|ग्राम|भूमि)",
+        "साक्षी[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|क्षेत्र|दावा|ग्राम|भूमि)",
+        "हस्ताक्षरकर्ता[\\s:]+([A-Za-z0-9\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|क्षेत्र|दावा|ग्राम|भूमि)"
+      ],
+      "confidence": 0.4
+    },
+    {
+      "name": "project_name",
+      "pattern": "(?:Project[\\s]+Name|Project|परियोजना[\\s]+नाम|परियोजना)[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|District|State|Area|जिला|राज्य|क्षेत्र)",
+      "alternatives": [
+        "Project[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|District|State|Area)",
+        "परियोजना[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|जिला|राज्य|क्षेत्र)",
+        "योजना[\\s:]+([A-Za-z\\u0900-\\u097F\\s]+?)(?:\\n|जिला|राज्य|क्षेत्र)"
+      ],
+      "confidence": 0.6
+    },
+    {
+      "name": "letter_number",
+      "pattern": "(?:Letter[\\s]+No|Letter[\\s]+Number|पत्र[\\s]+क्रमांक|पत्र[\\s]+संख्या)[\\s#:]+([A-Z0-9\\-\\/]+)",
+      "alternatives": [
+        "Letter[\\s]+No[\\s#:]+([A-Z0-9\\-\\/]+)",
+        "Letter[\\s]+Number[\\s#:]+([A-Z0-9\\-\\/]+)",
+        "पत्र[\\s]+क्रमांक[\\s#:]+([A-Z0-9\\-\\/]+)",
+        "पत्र[\\s]+संख्या[\\s#:]+([A-Z0-9\\-\\/]+)",
+        "संदर्भ[\\s#:]+([A-Z0-9\\-\\/]+)"
+      ],
+      "confidence": 0.7
+    },
+    {
+      "name": "subject",
+      "pattern": "(?:Subject|विषय|मुद्दा)[\\s:]+([A-Za-z\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Date|दिनांक|तारीख)",
+      "alternatives": [
+        "विषय[\\s:]+([A-Za-z\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Date|दिनांक|तारीख)",
+        "मुद्दा[\\s:]+([A-Za-z\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Date|दिनांक|तारीख)",
+        "Topic[\\s:]+([A-Za-z\\u0900-\\u097F\\s,\\.\\-]+?)(?:\\n|Date|दिनांक|तारीख)"
+      ],
+      "confidence": 0.5
+    }
+  ],
+  "preprocessing": {
+    "enabled": true,
+    "denoise": true,
+    "contrast": 1.4,
+    "brightness": 1.3,
+    "sharpen": true
+  },
+  "tesseract": {
+    "language": "hin+eng",
+    "oem": 1,
+    "psm": 6
+  }
+}

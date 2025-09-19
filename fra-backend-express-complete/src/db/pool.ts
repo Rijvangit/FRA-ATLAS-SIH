@@ -8,14 +8,11 @@ try {
   dns.setDefaultResultOrder('ipv4first');
 } catch {}
 
-// Validate required environment variables
-if (!process.env.DATABASE_URL) {
-  console.error('❌ DATABASE_URL environment variable is required');
-  process.exit(1);
-}
+// Use fallback database configuration if DATABASE_URL is not set
+const databaseUrl = process.env.DATABASE_URL || 'postgresql://postgres:password@localhost:5432/fra_atlas';
 
 export const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: databaseUrl,
   ssl: process.env.DATABASE_URL?.includes('supabase')
     ? { rejectUnauthorized: false }
     : undefined,
@@ -32,7 +29,8 @@ export const pool = new Pool({
 // Handle pool errors
 pool.on('error', (err) => {
   console.error('Unexpected error on idle client', err);
-  process.exit(-1);
+  console.log('⚠️  Database error - OCR will continue to work');
+  // Don't exit the process, let OCR work without database
 });
 
 // Test the connection on startup
@@ -43,6 +41,7 @@ pool.connect()
   })
   .catch(err => {
     console.error('❌ Database connection failed:', err);
-    process.exit(1);
+    console.log('⚠️  Continuing without database - OCR will work but data won\'t be saved');
+    // Don't exit the process, let OCR work without database
   });
 

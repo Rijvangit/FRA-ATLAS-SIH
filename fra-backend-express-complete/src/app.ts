@@ -24,7 +24,25 @@ app.use((req, res, next) => {
 app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
-app.use(express.json({ limit: '2mb' }));
+
+// Only parse JSON and URL-encoded data for non-multipart requests
+app.use((req, res, next) => {
+  if (req.is('multipart/form-data')) {
+    // Skip JSON parsing for multipart requests
+    next();
+  } else {
+    express.json({ limit: '2mb' })(req, res, next);
+  }
+});
+
+app.use((req, res, next) => {
+  if (req.is('multipart/form-data')) {
+    // Skip URL-encoded parsing for multipart requests
+    next();
+  } else {
+    express.urlencoded({ extended: true, limit: '2mb' })(req, res, next);
+  }
+});
 
 // Root endpoint
 app.get('/', (req, res) => {
