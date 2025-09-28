@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TRINETRA</title>
+    <!-- Poppins font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', Arial, sans-serif;
+            background: url('bg.png') no-repeat center center;
+            background-size: cover;
+            min-height: 100vh;
+            color: #1a2326;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 36px 0 20px;
+        }
+
+        .header-logos {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-logos img {
+            height: 30px;
+        }
+
+        .header-title {
+            font-weight: 700;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            margin-left: 300px;
+            color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #00521b;
+        }
+
+        /* Main section */
+        .main {
+            margin-top: 100px;
+            margin-left: 60px;
+            text-align: left;
+        }
+
+        .main h1 {
+            font-weight: 600;
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .main-btns {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .main-btns .btn-green {
+            background: #00521b;
+            color: #fff;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 24px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0,82,27,0.05);
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-btns .btn-green:hover {
+            background: #003b15;
+        }
+
+        .main-btns .btn-white {
+            background: #fff;
+            color: #00521b;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 24px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0,82,27,0.08);
+            transition: background 0.2s;
+        }
+
+        .main-btns .btn-white:hover {
+            background: #e6f5f0;
+        }
+
+        /* Stats section */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 70px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 0;
+            background: rgb(255,255,255);
+            border-radius: 12px;
+            width: 700px;
+            box-shadow: 0 6px 24px rgba(0,82,27,0.08);
+        }
+
+        .stat-block {
+            flex: 1 1 0;
+            padding: 16px 24px;
+            min-width: 100px;
+            border-right: 1px solid #eaeaea;
+            text-align: center;
+        }
+
+        .stat-block:last-child {
+            border-right: none;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #00521b;
+            margin-bottom: 2px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #162829;
+            opacity: 0.77;
+        }
+
+        /* Workflow Image */
+        .workflow-image {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .workflow-image img {
+            max-width: 90%;
+            height: auto;
+            border-radius: 12px;
+          
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-logos">
+            <img src="logo1.png" alt="Logo 1">
+            <img src="logo2.png" alt="Logo 2">
+            <span class="header-title">TRINETRA</span>
+        </div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="https://trinetra-home-page-3scq.onrender.com/" target="_blank">Apply Claims</a>
+            <a href="#">Upload/Scan Docs.</a>
+            <a href="#">Dashboards</a>
+            <a href="#">Resources</a>
+            <a href="#">Contacts</a>
+        </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main">
+        <h1>Empowering Forest Rights<br>with Transparency</h1>
+        <div class="main-btns">
+            <a href="https://trinetra-home-page-3scq.onrender.com/" class="btn-green" target="_blank">Apply for Claims</a>
+            <button class="btn-white">Track Claims</button>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats-container">
+        <div class="stats">
+            <div class="stat-block">
+                <div class="stat-value">15324</div>
+                <div class="stat-label">Total Claims Filed</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-value">9872</div>
+                <div class="stat-label">Approved</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-value">3125</div>
+                <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-value">2327</div>
+                <div class="stat-label">Rejected</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Workflow Image Section -->
+    <div class="workflow-image">
+        <img src="workflow.png" alt="Workflow Image">
+    </div>
+
+    <!-- Animate Stats Script -->
+    <script>
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                element.innerText = Math.floor(progress * (end - start) + start).toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const stats = document.querySelectorAll('.stat-value');
+            stats.forEach(stat => {
+                const endValue = parseInt(stat.innerText.replace(/,/g, ''));
+                animateValue(stat, 0, endValue, 1000); // 1 seconds animation
+            });
+        });
+    </script>
+</body>
+</html>
